@@ -1030,40 +1030,54 @@ BEGIN
         MedianPct50Date, MedianPct100Date,
         BuildRunKey
     )
+    -- Step 1: filter and label each job with its period month
+    WITH job_data AS (
+        SELECT
+            DATEFROMPARTS(
+                YEAR(jr.EstimatedStartDate),
+                MONTH(jr.EstimatedStartDate),
+                1
+            )                           AS PeriodMonth,
+            jr.EstimatedNetFees,
+            jr.EstimatedMarginDollars,
+            jr.EstimatedPct50Date,
+            jr.EstimatedPct100Date
+        FROM dbo.analytical_job_results jr
+        WHERE jr.BuildRunKey        = @BuildRunKey
+          AND jr.DatasetType        = 'Current'
+          AND jr.EstimatedStartDate IS NOT NULL
+    ),
+    -- Step 2: compute median day offsets as window functions
+    -- (no GROUP BY here — PERCENTILE_CONT requires a clean window context)
+    with_medians AS (
+        SELECT
+            PeriodMonth,
+            EstimatedNetFees,
+            EstimatedMarginDollars,
+            CAST(
+                PERCENTILE_CONT(0.5) WITHIN GROUP (
+                    ORDER BY DATEDIFF(day, PeriodMonth, EstimatedPct50Date)
+                ) OVER (PARTITION BY PeriodMonth)
+            AS INT) AS Median50Offset,
+            CAST(
+                PERCENTILE_CONT(0.5) WITHIN GROUP (
+                    ORDER BY DATEDIFF(day, PeriodMonth, EstimatedPct100Date)
+                ) OVER (PARTITION BY PeriodMonth)
+            AS INT) AS Median100Offset
+        FROM job_data
+    )
+    -- Step 3: aggregate — MIN() picks the (identical) median
+    -- value that PERCENTILE_CONT assigned to every row in the partition
     SELECT
-        DATEFROMPARTS(YEAR(jr.EstimatedStartDate), MONTH(jr.EstimatedStartDate), 1) AS PeriodMonth,
-        COUNT(*)                        AS EstimatedJobCount,
-        SUM(jr.EstimatedNetFees)        AS EstimatedNetFees,
-        SUM(jr.EstimatedMarginDollars)  AS EstimatedMarginDollars,
-        -- Median 50%-complete date via PERCENTILE_CONT on day offset from period start
-        DATEADD(day,
-            CAST(PERCENTILE_CONT(0.5) WITHIN GROUP (
-                ORDER BY DATEDIFF(day,
-                    DATEFROMPARTS(YEAR(jr.EstimatedStartDate), MONTH(jr.EstimatedStartDate), 1),
-                    jr.EstimatedPct50Date)
-            ) OVER (PARTITION BY
-                DATEFROMPARTS(YEAR(jr.EstimatedStartDate), MONTH(jr.EstimatedStartDate), 1)
-            ) AS INT),
-            DATEFROMPARTS(YEAR(jr.EstimatedStartDate), MONTH(jr.EstimatedStartDate), 1)
-        ) AS MedianPct50Date,
-        -- Median 100%-complete date
-        DATEADD(day,
-            CAST(PERCENTILE_CONT(0.5) WITHIN GROUP (
-                ORDER BY DATEDIFF(day,
-                    DATEFROMPARTS(YEAR(jr.EstimatedStartDate), MONTH(jr.EstimatedStartDate), 1),
-                    jr.EstimatedPct100Date)
-            ) OVER (PARTITION BY
-                DATEFROMPARTS(YEAR(jr.EstimatedStartDate), MONTH(jr.EstimatedStartDate), 1)
-            ) AS INT),
-            DATEFROMPARTS(YEAR(jr.EstimatedStartDate), MONTH(jr.EstimatedStartDate), 1)
-        ) AS MedianPct100Date,
-        @BuildRunKey
-    FROM dbo.analytical_job_results jr
-    WHERE jr.BuildRunKey          = @BuildRunKey
-      AND jr.DatasetType          = 'Current'
-      AND jr.EstimatedStartDate   IS NOT NULL
-    GROUP BY
-        DATEFROMPARTS(YEAR(jr.EstimatedStartDate), MONTH(jr.EstimatedStartDate), 1);
+        PeriodMonth,
+        COUNT(*)                                        AS EstimatedJobCount,
+        SUM(EstimatedNetFees)                           AS EstimatedNetFees,
+        SUM(EstimatedMarginDollars)                     AS EstimatedMarginDollars,
+        DATEADD(day, MIN(Median50Offset),  MIN(PeriodMonth)) AS MedianPct50Date,
+        DATEADD(day, MIN(Median100Offset), MIN(PeriodMonth)) AS MedianPct100Date,
+        @BuildRunKey                                    AS BuildRunKey
+    FROM with_medians
+    GROUP BY PeriodMonth;
 END;
 GO
 
