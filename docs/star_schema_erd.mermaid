@@ -1,0 +1,142 @@
+---
+title: Horizon Data Predictive Model — Star Schema ERD
+---
+erDiagram
+
+  %% ─────────────────────────────────────────
+  %% FACT TABLE
+  %% ─────────────────────────────────────────
+  fact_opportunities {
+    varchar   OpportunityID    PK  "Unique identifier for each opportunity/job"
+    int       ServiceLineKey   FK  "→ dim_service_line (Category 1 — highest priority)"
+    int       ClientTypeKey    FK  "→ dim_client_type  (Category 2)"
+    int       IndustryKey      FK  "→ dim_industry     (Category 3)"
+    int       NewVsExistingKey FK  "→ dim_new_vs_existing (Category 4)"
+    int       LeadSourceKey    FK  "→ dim_lead_source  (Category 5 — lowest priority)"
+    int       StatusKey        FK  "→ dim_status (derived from date fields)"
+    date      CreatedDate          "Date opportunity entered pipeline (always populated)"
+    date      SoldDate             "Date contract signed — null if lost or open"
+    date      ClosedLostDate       "Date marked lost — null if won or open"
+    date      StartDate            "Date work began — null until started"
+    date      Pct50CompleteDate    "Date 50% milestone reached — null until reached"
+    date      Pct100CompleteDate   "Date 100% milestone reached — null until reached"
+    date      ResolutionDate       "SoldDate if won, ClosedLostDate if lost — used for training/test bucketing"
+    decimal   NetFees              "Actual net fees (populated once sold)"
+    decimal   MarginPct            "Actual margin % (populated once 100% complete)"
+    decimal   MarginDollars        "Derived: MarginPct x NetFees (stored for aggregation performance)"
+    int       DaysSellToStart      "Derived: StartDate - SoldDate"
+    int       DaysStartTo50Pct     "Derived: Pct50CompleteDate - StartDate"
+    int       DaysStartTo100Pct    "Derived: Pct100CompleteDate - StartDate"
+  }
+
+  %% ─────────────────────────────────────────
+  %% DIMENSION TABLES
+  %% ─────────────────────────────────────────
+  dim_service_line {
+    int       ServiceLineKey  PK
+    varchar   ServiceLineName     "Audit, Tax, Advisory"
+  }
+
+  dim_client_type {
+    int       ClientTypeKey   PK
+    varchar   ClientTypeName      "Business, Individual"
+  }
+
+  dim_industry {
+    int       IndustryKey     PK
+    varchar   IndustryName        "Healthcare, Manufacturing, Technology, Financial Services, Nonprofit, Real Estate, Construction, Other, Unknown"
+  }
+
+  dim_new_vs_existing {
+    int       NewVsExistingKey PK
+    varchar   NewVsExistingName   "New, Existing, Unknown"
+  }
+
+  dim_lead_source {
+    int       LeadSourceKey   PK
+    varchar   LeadSourceName      "Referral, Existing-Client Expansion, Competitive RFP, Outbound, Unknown"
+  }
+
+  dim_status {
+    int       StatusKey       PK
+    varchar   StatusName          "Open Opportunity, Lost, Sold/Not Started, Started"
+    varchar   StatusDescription   "Plain-language description of how status is derived"
+  }
+
+  %% ─────────────────────────────────────────
+  %% ANALYTICAL OUTPUT TABLES
+  %% ─────────────────────────────────────────
+  analytical_segments {
+    int       SegmentKey        PK  "Surrogate key for segment-outcome combination"
+    int       ServiceLineKey    FK  "→ dim_service_line (null if dropped)"
+    int       ClientTypeKey     FK  "→ dim_client_type  (null if dropped)"
+    int       IndustryKey       FK  "→ dim_industry     (null if dropped)"
+    int       NewVsExistingKey  FK  "→ dim_new_vs_existing (null if dropped)"
+    int       LeadSourceKey     FK  "→ dim_lead_source  (null if dropped)"
+    int       StatusKey         FK  "→ dim_status (never dropped)"
+    varchar   OutcomeName           "WinPct, NetFees, MarginPct, DaysSellToStart, DaysStartTo50Pct, DaysStartTo100Pct"
+    decimal   OutcomeEstimate       "Mean of outcome across all jobs in segment (training data)"
+    int       ObservationCount      "Number of jobs used to compute this estimate"
+    bit       Cat3Dropped           "1 if Industry category was dropped to meet minimum segment size"
+    bit       Cat4Dropped           "1 if NewVsExisting category was dropped to meet minimum segment size"
+    bit       Cat5Dropped           "1 if LeadSource category was dropped to meet minimum segment size"
+  }
+
+  analytical_job_results {
+    varchar   OpportunityID         PK  "→ fact_opportunities"
+    int       SegmentKey            FK  "→ analytical_segments (segment used for estimation)"
+    decimal   EstimatedWinPct           "Estimated probability of winning (opportunities only)"
+    decimal   EstimatedNetFees          "Estimated net fees"
+    decimal   EstimatedMarginPct        "Estimated margin %"
+    decimal   EstimatedMarginDollars    "Estimated margin $ = EstimatedMarginPct x EstimatedNetFees"
+    date      EstimatedSellDate         "Estimated date of job sale (open opportunities only)"
+    date      EstimatedStartDate        "SoldDate + estimated DaysSellToStart"
+    date      EstimatedPct50Date        "StartDate + estimated DaysStartTo50Pct"
+    date      EstimatedPct100Date       "StartDate + estimated DaysStartTo100Pct"
+  }
+
+  analytical_pipeline_results {
+    int       PipelineResultKey     PK  "Surrogate key"
+    date      PeriodMonth               "Calendar month of aggregation (first day of month)"
+    int       EstimatedJobCount         "Number of jobs estimated to start in this month"
+    decimal   EstimatedNetFees          "Total estimated net fees for jobs starting this month"
+    decimal   EstimatedMarginDollars    "Total estimated margin $ for jobs starting this month"
+    date      MedianPct50Date           "Median estimated 50% complete date across jobs in period"
+    date      MedianPct100Date          "Median estimated 100% complete date across jobs in period"
+  }
+
+  %% ─────────────────────────────────────────
+  %% LOGGING TABLE
+  %% ─────────────────────────────────────────
+  log_build_runs {
+    int       BuildRunKey       PK  "Surrogate key"
+    datetime  RunTimestamp          "Timestamp of Build script execution"
+    int       MinJobsPerSegment     "Configured minimum jobs per segment (default 30)"
+    date      TrainingStart         "Configured start of training window"
+    date      TrainingEnd           "Configured end of training window"
+    date      TestStart             "Configured start of test window"
+    date      TestEnd               "Configured end of test window"
+    int       RowsProcessed         "Total rows processed in this run"
+    varchar   Status                "Success, Warning, Error"
+  }
+
+  %% ─────────────────────────────────────────
+  %% RELATIONSHIPS
+  %% ─────────────────────────────────────────
+
+  fact_opportunities }o--|| dim_service_line    : "ServiceLineKey"
+  fact_opportunities }o--|| dim_client_type     : "ClientTypeKey"
+  fact_opportunities }o--|| dim_industry        : "IndustryKey"
+  fact_opportunities }o--|| dim_new_vs_existing : "NewVsExistingKey"
+  fact_opportunities }o--|| dim_lead_source     : "LeadSourceKey"
+  fact_opportunities }o--|| dim_status          : "StatusKey"
+
+  analytical_segments }o--|| dim_service_line    : "ServiceLineKey"
+  analytical_segments }o--|| dim_client_type     : "ClientTypeKey"
+  analytical_segments }o--|| dim_industry        : "IndustryKey"
+  analytical_segments }o--|| dim_new_vs_existing : "NewVsExistingKey"
+  analytical_segments }o--|| dim_lead_source     : "LeadSourceKey"
+  analytical_segments }o--|| dim_status          : "StatusKey"
+
+  analytical_job_results }o--|| fact_opportunities  : "OpportunityID"
+  analytical_job_results }o--|| analytical_segments : "SegmentKey"
