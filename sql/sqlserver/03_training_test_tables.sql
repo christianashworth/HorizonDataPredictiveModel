@@ -16,9 +16,12 @@
               analytical_test_results
                 One row per test-window record per outcome.
                 Stores PredictedValue, ActualValue, Error,
-                AbsoluteError, and PercentageError.
+                AbsoluteError, SquaredError, and PercentageError.
+                SquaredError weights larger misses more heavily.
                 Only written where actual values exist.
                 WinPct actual = 1.0 (won) or 0.0 (lost).
+                WinPct aggregates to SUM(Predicted) = expected wins
+                vs SUM(Actual) = actual wins for calibration.
 
               usp_BuildTrainingSummary
                 Populates analytical_training_summary from
@@ -116,15 +119,18 @@ GO
      Error           = PredictedValue - ActualValue
                        (positive = overestimate, negative = underestimate)
      AbsoluteError   = ABS(Error)
+     SquaredError    = Error² — weights larger misses more heavily than
+                       AbsoluteError. Power BI aggregates to SSE (sum),
+                       MSE (mean), and RMSE (SQRT of mean) as measures.
      PercentageError = Error / ActualValue
                        (NULL when ActualValue = 0 to avoid division by zero)
 
    WinPct handling:
      PredictedValue  = segment win probability (e.g. 0.55)
      ActualValue     = 1.0 if won, 0.0 if lost
-     Error stored at record level. Power BI aggregates to
-     segment level to compare predicted vs observed win rates
-     (calibration analysis).
+     At record level, SUM(PredictedValue) = expected number of wins,
+     SUM(ActualValue) = actual number of wins — Power BI compares
+     these at the segment level for calibration analysis.
 
    Rows only written where ActualValue IS NOT NULL:
      WinPct            — always available for test records (all resolved)
@@ -153,6 +159,7 @@ BEGIN
         -- Error metrics
         Error                   DECIMAL(18,6)   NULL,   -- Predicted - Actual
         AbsoluteError           DECIMAL(18,6)   NULL,   -- ABS(Error)
+        SquaredError            DECIMAL(18,6)   NULL,   -- Error² (weights large misses more heavily)
         PercentageError         DECIMAL(18,6)   NULL,   -- Error / ActualValue
 
         -- Segment context (for slicing in Power BI)
@@ -326,7 +333,7 @@ BEGIN
     INSERT INTO dbo.analytical_test_results (
         OpportunityID, SegmentKey, BuildRunKey,
         OutcomeName, PredictedValue, ActualValue,
-        Error, AbsoluteError, PercentageError,
+        Error, AbsoluteError, SquaredError, PercentageError,
         GranularityLevel, CategoriesDropped,
         StatusName, ServiceLineName, ClientTypeName,
         IndustryName, NewVsExistingName, LeadSourceName,
@@ -345,6 +352,7 @@ BEGIN
         -- Error metrics
         outcomes.PredictedValue - outcomes.ActualValue          AS Error,
         ABS(outcomes.PredictedValue - outcomes.ActualValue)     AS AbsoluteError,
+        POWER(outcomes.PredictedValue - outcomes.ActualValue, 2) AS SquaredError,
         CASE
             WHEN outcomes.ActualValue = 0 THEN NULL  -- Avoid division by zero
             ELSE (outcomes.PredictedValue - outcomes.ActualValue) / outcomes.ActualValue
@@ -425,6 +433,7 @@ BEGIN
     SET tr.PredictedValue  = s.OutcomeEstimate,
         tr.Error           = s.OutcomeEstimate - tr.ActualValue,
         tr.AbsoluteError   = ABS(s.OutcomeEstimate - tr.ActualValue),
+        tr.SquaredError    = POWER(s.OutcomeEstimate - tr.ActualValue, 2),
         tr.PercentageError = CASE
             WHEN tr.ActualValue = 0 THEN NULL
             ELSE (s.OutcomeEstimate - tr.ActualValue) / tr.ActualValue
