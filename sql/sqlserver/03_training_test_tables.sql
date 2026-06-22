@@ -589,7 +589,7 @@ GO
    SECTION 6 — VERIFICATION
    ============================================================ */
 SELECT 'analytical_training_summary rows' AS TableName,
-       COUNT(*) AS RowCount
+       COUNT(*) AS [RowCount]
 FROM dbo.analytical_training_summary
 WHERE BuildRunKey = (SELECT MAX(BuildRunKey) FROM dbo.log_build_runs WHERE Status = 'Success')
 UNION ALL
