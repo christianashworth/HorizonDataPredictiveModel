@@ -22,13 +22,7 @@
           "authentication": null,
           "query": null
         },
-        "options": {},
-        "credential": {
-          "AuthenticationKind": "ServiceAccount",
-          "kind": "SQL",
-          "path": "localhost\\SQLEXPRESS;PipelineAnalytics",
-          "EncryptConnection": false
-        }
+        "options": {}
       }
     ],
     "tables": [
