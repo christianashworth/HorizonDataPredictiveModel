@@ -5,6 +5,8 @@
     {
       "name": "ReportSection1",
       "displayName": "1. Training Analysis",
+      "width": 1280,
+      "height": 720,
       "visualContainers": [
         {
           "x": 20,
@@ -30,13 +32,13 @@
           "height": 520,
           "config": "{\"name\": \"txt20140\", \"visualType\": \"textbox\", \"droppedFields\": [], \"prototypeQuery\": {\"Version\": 2, \"From\": [], \"Select\": []}, \"vcObjects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"RECOMMENDED VISUALS\\n\\nSlicers:\\n  \\u2022 OutcomeName\\n  \\u2022 StatusName\\n  \\u2022 ServiceLineName\\n\\nCards (top row):\\n  \\u2022 Total Segments\\n  \\u2022 Segments With Dropped Categories\\n  \\u2022 Avg Observations Per Segment\\n\\nMain table:\\n  SegmentLabel | OutcomeName | OutcomeEstimate\\n  | ObservationCount | GranularityLevel\\n  | DroppedCategoriesLabel\\n\\nBar chart:\\n  ObservationCount by SegmentLabel\\n  (shows data-rich vs data-sparse cells)\", \"textStyle\": {\"fontWeight\": \"normal\", \"fontSize\": \"11pt\"}}], \"horizontalTextAlignment\": \"left\"}]}}]}}"
         }
-      ],
-      "width": 1280,
-      "height": 720
+      ]
     },
     {
       "name": "ReportSection2",
       "displayName": "2. Model Performance",
+      "width": 1280,
+      "height": 720,
       "visualContainers": [
         {
           "x": 20,
@@ -60,15 +62,15 @@
           "z": 0,
           "width": 580,
           "height": 560,
-          "config": "{\"name\": \"txt20140\", \"visualType\": \"textbox\", \"droppedFields\": [], \"prototypeQuery\": {\"Version\": 2, \"From\": [], \"Select\": []}, \"vcObjects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"RECOMMENDED VISUALS\\n\\nSlicer: OutcomeName (select one at a time)\\n\\nContinuous outcomes \\u2014 Error Metric cards:\\n  \\u2022 RMSE  (in same units as outcome)\\n  \\u2022 MAE\\n  \\u2022 MAPE\\n  \\u2022 Mean Error (Bias)\\n\\nScatter chart:\\n  X axis: PredictedValue\\n  Y axis: ActualValue\\n  Add a 45-degree reference line\\n  (perfect predictions lie on the line)\\n\\nError summary table:\\n  SegmentLabel | OutcomeName | RMSE | MAE | MAPE\\n\\nWin % Calibration (filter OutcomeName = WinPct):\\n  \\u2022 Card: Win Rate Predicted\\n  \\u2022 Card: Win Rate Actual\\n  \\u2022 Card: Win Rate Calibration Gap\\n  \\u2022 Bar chart: Expected Wins vs Actual Wins\\n    by ServiceLineName or SegmentLabel\", \"textStyle\": {\"fontWeight\": \"normal\", \"fontSize\": \"11pt\"}}], \"horizontalTextAlignment\": \"left\"}]}}]}}"
+          "config": "{\"name\": \"txt20140\", \"visualType\": \"textbox\", \"droppedFields\": [], \"prototypeQuery\": {\"Version\": 2, \"From\": [], \"Select\": []}, \"vcObjects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"RECOMMENDED VISUALS\\n\\nSlicer: OutcomeName (select one at a time)\\n\\nContinuous outcome \\u2014 error metric cards:\\n  \\u2022 RMSE  (same units as outcome)\\n  \\u2022 MAE\\n  \\u2022 MAPE\\n  \\u2022 Mean Error (Bias)\\n\\nScatter chart:\\n  X axis: PredictedValue\\n  Y axis: ActualValue\\n  Add a 45-degree reference line\\n  (perfect predictions lie on the line)\\n\\nError summary table:\\n  SegmentLabel | OutcomeName | RMSE | MAE | MAPE\\n\\nWin % Calibration (filter OutcomeName = WinPct):\\n  \\u2022 Card: Win Rate Predicted\\n  \\u2022 Card: Win Rate Actual\\n  \\u2022 Card: Win Rate Calibration Gap\\n  \\u2022 Bar: Expected Wins vs Actual Wins\\n    by ServiceLineName or SegmentLabel\", \"textStyle\": {\"fontWeight\": \"normal\", \"fontSize\": \"11pt\"}}], \"horizontalTextAlignment\": \"left\"}]}}]}}"
         }
-      ],
-      "width": 1280,
-      "height": 720
+      ]
     },
     {
       "name": "ReportSection3",
       "displayName": "3. Job Predictions",
+      "width": 1280,
+      "height": 720,
       "visualContainers": [
         {
           "x": 20,
@@ -84,7 +86,7 @@
           "z": 0,
           "width": 1200,
           "height": 35,
-          "config": "{\"name\": \"txt2085\", \"visualType\": \"textbox\", \"droppedFields\": [], \"prototypeQuery\": {\"Version\": 2, \"From\": [], \"Select\": []}, \"vcObjects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Model estimates applied to each individual opportunity and job in the current pipeline. Dates shown are estimated milestone dates.\", \"textStyle\": {\"fontWeight\": \"normal\", \"fontSize\": \"11pt\"}}], \"horizontalTextAlignment\": \"left\"}]}}]}}"
+          "config": "{\"name\": \"txt2085\", \"visualType\": \"textbox\", \"droppedFields\": [], \"prototypeQuery\": {\"Version\": 2, \"From\": [], \"Select\": []}, \"vcObjects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Model estimates for each individual opportunity and job. Timing outcomes are presented as estimated calendar dates (SoldDate + estimated days from sell to start = EstimatedStartDate, etc.).\", \"textStyle\": {\"fontWeight\": \"normal\", \"fontSize\": \"11pt\"}}], \"horizontalTextAlignment\": \"left\"}]}}]}}"
         },
         {
           "x": 20,
@@ -92,15 +94,15 @@
           "z": 0,
           "width": 580,
           "height": 530,
-          "config": "{\"name\": \"txt20140\", \"visualType\": \"textbox\", \"droppedFields\": [], \"prototypeQuery\": {\"Version\": 2, \"From\": [], \"Select\": []}, \"vcObjects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"RECOMMENDED VISUALS\\n\\nSlicers:\\n  \\u2022 StatusName (from dim_status)\\n  \\u2022 ServiceLineName (from dim_service_line)\\n  \\u2022 DatasetType (Current / Test)\\n\\nSummary cards:\\n  \\u2022 Current Pipeline Jobs\\n  \\u2022 Current Pipeline Estimated Fees\\n  \\u2022 Current Pipeline Estimated Margin\\n  \\u2022 Probability-Weighted Fees\\n    (expected value of open opp pipeline)\\n\\nMain table:\\n  OpportunityID | StatusName | ServiceLineName\\n  | EstimatedWinPct | EstimatedNetFees\\n  | EstimatedMarginPct | EstimatedStartDate\\n  | EstimatedPct50Date | EstimatedPct100Date\\n\\nBar chart:\\n  EstimatedNetFees by ServiceLineName\\n  or IndustryName\", \"textStyle\": {\"fontWeight\": \"normal\", \"fontSize\": \"11pt\"}}], \"horizontalTextAlignment\": \"left\"}]}}]}}"
+          "config": "{\"name\": \"txt20140\", \"visualType\": \"textbox\", \"droppedFields\": [], \"prototypeQuery\": {\"Version\": 2, \"From\": [], \"Select\": []}, \"vcObjects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"RECOMMENDED VISUALS\\n\\nSlicers:\\n  \\u2022 StatusName (from dim_status)\\n  \\u2022 ServiceLineName (from dim_service_line)\\n  \\u2022 DatasetType (Current / Test)\\n\\nSummary cards:\\n  \\u2022 Current Pipeline Jobs\\n  \\u2022 Current Pipeline Estimated Fees\\n  \\u2022 Current Pipeline Estimated Margin\\n  \\u2022 Probability-Weighted Fees\\n    (expected value of open opp pipeline)\\n\\nMain table:\\n  OpportunityID | StatusName | ServiceLineName\\n  | EstimatedWinPct | EstimatedNetFees\\n  | EstimatedMarginPct | EstimatedStartDate\\n  | EstimatedPct50Date | EstimatedPct100Date\\n\\nBar chart:\\n  EstimatedNetFees by ServiceLineName\", \"textStyle\": {\"fontWeight\": \"normal\", \"fontSize\": \"11pt\"}}], \"horizontalTextAlignment\": \"left\"}]}}]}}"
         }
-      ],
-      "width": 1280,
-      "height": 720
+      ]
     },
     {
       "name": "ReportSection4",
       "displayName": "4. Pipeline Summary",
+      "width": 1280,
+      "height": 720,
       "visualContainers": [
         {
           "x": 20,
@@ -115,20 +117,18 @@
           "y": 85,
           "z": 0,
           "width": 1200,
-          "height": 35,
-          "config": "{\"name\": \"txt2085\", \"visualType\": \"textbox\", \"droppedFields\": [], \"prototypeQuery\": {\"Version\": 2, \"From\": [], \"Select\": []}, \"vcObjects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Monthly aggregation of estimated pipeline activity, bucketed by estimated start date. Note: MedianPct50Date and MedianPct100Date are NULL for months dominated by Sold/Not Started jobs \\u2014 this is expected.\", \"textStyle\": {\"fontWeight\": \"normal\", \"fontSize\": \"11pt\"}}], \"horizontalTextAlignment\": \"left\"}]}}]}}"
+          "height": 50,
+          "config": "{\"name\": \"txt2085\", \"visualType\": \"textbox\", \"droppedFields\": [], \"prototypeQuery\": {\"Version\": 2, \"From\": [], \"Select\": []}, \"vcObjects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Monthly aggregation of estimated pipeline activity, bucketed by estimated start date. MedianPct50Date and MedianPct100Date are NULL for months dominated by Sold/Not Started jobs \\u2014 this is expected and reflects that completion timing cannot be estimated until a job has started.\", \"textStyle\": {\"fontWeight\": \"normal\", \"fontSize\": \"11pt\"}}], \"horizontalTextAlignment\": \"left\"}]}}]}}"
         },
         {
           "x": 20,
-          "y": 140,
+          "y": 155,
           "z": 0,
           "width": 580,
           "height": 480,
-          "config": "{\"name\": \"txt20140\", \"visualType\": \"textbox\", \"droppedFields\": [], \"prototypeQuery\": {\"Version\": 2, \"From\": [], \"Select\": []}, \"vcObjects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"RECOMMENDED VISUALS\\n\\nSlicer: PeriodMonth (date range)\\n\\nSummary cards:\\n  \\u2022 Total Estimated Jobs\\n  \\u2022 Total Estimated Fees\\n  \\u2022 Total Estimated Margin\\n  \\u2022 Avg Estimated Margin %\\n\\nClustered column chart:\\n  X axis: PeriodMonth\\n  Y axis: EstimatedJobCount\\n\\nLine chart:\\n  X axis: PeriodMonth\\n  Y axis: EstimatedNetFees\\n\\nSummary table:\\n  PeriodMonth | EstimatedJobCount\\n  | EstimatedNetFees | EstimatedMarginDollars\\n  | MedianPct50Date | MedianPct100Date\", \"textStyle\": {\"fontWeight\": \"normal\", \"fontSize\": \"11pt\"}}], \"horizontalTextAlignment\": \"left\"}]}}]}}"
+          "config": "{\"name\": \"txt20155\", \"visualType\": \"textbox\", \"droppedFields\": [], \"prototypeQuery\": {\"Version\": 2, \"From\": [], \"Select\": []}, \"vcObjects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"RECOMMENDED VISUALS\\n\\nSlicer: PeriodMonth (date range)\\n\\nSummary cards:\\n  \\u2022 Total Estimated Jobs\\n  \\u2022 Total Estimated Fees\\n  \\u2022 Total Estimated Margin\\n  \\u2022 Avg Estimated Margin %\\n\\nClustered column chart:\\n  X axis: PeriodMonth\\n  Y axis: EstimatedJobCount\\n\\nLine chart:\\n  X axis: PeriodMonth\\n  Y axis: EstimatedNetFees\\n\\nSummary table:\\n  PeriodMonth | EstimatedJobCount\\n  | EstimatedNetFees | EstimatedMarginDollars\\n  | MedianPct50Date | MedianPct100Date\", \"textStyle\": {\"fontWeight\": \"normal\", \"fontSize\": \"11pt\"}}], \"horizontalTextAlignment\": \"left\"}]}}]}}"
         }
-      ],
-      "width": 1280,
-      "height": 720
+      ]
     }
   ],
   "config": "{\"version\": \"5.43\", \"themeCollection\": {\"baseTheme\": {\"name\": \"CY24SU06\", \"version\": \"5.43\", \"type\": 2}}}",

@@ -995,7 +995,7 @@
             "expression": "SUMX(analytical_test_results, analytical_test_results[SquaredError])",
             "formatString": "#,##0.00",
             "displayFolder": "Error Metrics",
-            "description": "Sum of Squared Errors \u2014 total squared prediction error. Weights large misses more heavily than MAE."
+            "description": "Sum of Squared Errors. Weights large misses more heavily than MAE."
           },
           {
             "name": "MSE",
@@ -1009,7 +1009,7 @@
             "expression": "SQRT(AVERAGEX(analytical_test_results, analytical_test_results[SquaredError]))",
             "formatString": "#,##0.00",
             "displayFolder": "Error Metrics",
-            "description": "Root Mean Squared Error \u2014 in the same units as the outcome being measured. Lower is better."
+            "description": "Root Mean Squared Error \u2014 in the same units as the outcome. Lower is better."
           },
           {
             "name": "MAE",
@@ -1023,21 +1023,21 @@
             "expression": "AVERAGEX(FILTER(analytical_test_results, NOT ISBLANK(analytical_test_results[PercentageError])), ABS(analytical_test_results[PercentageError]))",
             "formatString": "0.0%",
             "displayFolder": "Error Metrics",
-            "description": "Mean Absolute Percentage Error \u2014 percentage miss normalised by outcome scale. Allows comparison across outcomes with different magnitudes."
+            "description": "Mean Absolute Percentage Error. Normalises error by outcome scale for cross-outcome comparison."
           },
           {
             "name": "Mean Error (Bias)",
             "expression": "AVERAGEX(analytical_test_results, analytical_test_results[Error])",
             "formatString": "+#,##0.00;-#,##0.00;0.00",
             "displayFolder": "Error Metrics",
-            "description": "Mean Error \u2014 directional bias. Positive = model systematically overestimates. Negative = underestimates."
+            "description": "Mean Error \u2014 directional bias. Positive = overestimate, negative = underestimate."
           },
           {
             "name": "Expected Wins",
             "expression": "CALCULATE(SUM(analytical_test_results[PredictedValue]), analytical_test_results[OutcomeName] = \"WinPct\")",
             "formatString": "#,##0.0",
             "displayFolder": "Win % Calibration",
-            "description": "Sum of predicted win probabilities \u2014 the number of wins the model expected. Compare to Actual Wins."
+            "description": "Sum of predicted win probabilities \u2014 the number of wins the model expected."
           },
           {
             "name": "Actual Wins",
@@ -1065,7 +1065,7 @@
             "expression": "[Win Rate Predicted] - [Win Rate Actual]",
             "formatString": "+0.0%;-0.0%;0.0%",
             "displayFolder": "Win % Calibration",
-            "description": "Difference between predicted and actual win rate. Near zero = well calibrated model."
+            "description": "Predicted minus actual win rate. Near zero = well calibrated model."
           },
           {
             "name": "Total Estimated Fees",
@@ -1121,14 +1121,14 @@
             "expression": "SUMX(FILTER(analytical_job_results, analytical_job_results[DatasetType] = \"Current\" && NOT ISBLANK(analytical_job_results[EstimatedWinPct])), analytical_job_results[EstimatedNetFees] * analytical_job_results[EstimatedWinPct])",
             "formatString": "$#,##0",
             "displayFolder": "Job Predictions",
-            "description": "Estimated net fees weighted by win probability \u2014 the expected value of the open opportunity pipeline."
+            "description": "Estimated fees weighted by win probability \u2014 expected value of the open opportunity pipeline."
           },
           {
             "name": "Total Segments",
             "expression": "DISTINCTCOUNT(analytical_training_summary[SegmentKey])",
             "formatString": "#,##0",
             "displayFolder": "Training",
-            "description": "Total number of distinct segment-outcome combinations built from the training data."
+            "description": "Total distinct segment-outcome combinations built from training data."
           },
           {
             "name": "Segments With Dropped Categories",
