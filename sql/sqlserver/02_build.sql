@@ -690,10 +690,15 @@ BEGIN
 
 
     -- ── Clear previous build's data in FK-safe order ──────────
-    -- analytical_job_results references analytical_segments via
-    -- FK_jobres_Segment, so job results must be deleted first.
-    DELETE FROM dbo.analytical_job_results WHERE BuildRunKey <> @BuildRunKey;
-    DELETE FROM dbo.analytical_segments    WHERE BuildRunKey <> @BuildRunKey;
+    -- Delete in reverse FK dependency order:
+    --   analytical_training_summary → analytical_segments
+    --   analytical_test_results     → fact_opportunities
+    --   analytical_job_results      → analytical_segments
+    --   analytical_segments         (safe to delete last)
+    DELETE FROM dbo.analytical_training_summary WHERE BuildRunKey <> @BuildRunKey;
+    DELETE FROM dbo.analytical_test_results     WHERE BuildRunKey <> @BuildRunKey;
+    DELETE FROM dbo.analytical_job_results      WHERE BuildRunKey <> @BuildRunKey;
+    DELETE FROM dbo.analytical_segments         WHERE BuildRunKey <> @BuildRunKey;
 
     INSERT INTO dbo.analytical_segments (
         GranularityLevel, OutcomeName, StatusKey,

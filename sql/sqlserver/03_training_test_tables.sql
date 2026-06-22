@@ -458,6 +458,254 @@ GO
 
 
 /* ============================================================
+   SECTION 3b — FIX usp_BuildSegments DELETE ORDER
+   ============================================================
+   analytical_training_summary references analytical_segments
+   via FK_train_Segment, so it must be deleted before
+   analytical_segments. Update the procedure to include all
+   dependent tables in the correct FK-safe delete order.
+   ============================================================ */
+ALTER PROCEDURE dbo.usp_BuildSegments
+    @MinJobsPerSegment  INT,
+    @TrainingStart      DATE,
+    @TrainingEnd        DATE,
+    @BuildRunKey        INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @SK_Open  INT = (SELECT StatusKey FROM dbo.dim_status WHERE StatusName = 'Open Opportunity');
+    DECLARE @SK_Lost  INT = (SELECT StatusKey FROM dbo.dim_status WHERE StatusName = 'Lost');
+    DECLARE @SK_SNS   INT = (SELECT StatusKey FROM dbo.dim_status WHERE StatusName = 'Sold/Not Started');
+    DECLARE @SK_Start INT = (SELECT StatusKey FROM dbo.dim_status WHERE StatusName = 'Started');
+
+    CREATE TABLE #seg_work (
+        GranularityLevel    INT          NOT NULL,
+        OutcomeName         VARCHAR(50)  NOT NULL,
+        StatusKey           INT          NOT NULL,
+        ServiceLineKey      INT          NULL,
+        ClientTypeKey       INT          NULL,
+        IndustryKey         INT          NULL,
+        NewVsExistingKey    INT          NULL,
+        LeadSourceKey       INT          NULL,
+        OutcomeEstimate     DECIMAL(18,6) NULL,
+        ObservationCount    INT          NOT NULL,
+        Cat1Dropped         BIT          NOT NULL DEFAULT 0,
+        Cat2Dropped         BIT          NOT NULL DEFAULT 0,
+        Cat3Dropped         BIT          NOT NULL DEFAULT 0,
+        Cat4Dropped         BIT          NOT NULL DEFAULT 0,
+        Cat5Dropped         BIT          NOT NULL DEFAULT 0
+    );
+
+    SELECT
+        OpportunityID, ServiceLineKey, ClientTypeKey, IndustryKey,
+        NewVsExistingKey, LeadSourceKey, StatusKey,
+        SoldDate, ClosedLostDate, StartDate,
+        Pct50CompleteDate, Pct100CompleteDate, ResolutionDate,
+        NetFees, MarginPct, MarginDollars,
+        DaysSellToStart, DaysStartTo50Pct, DaysStartTo100Pct
+    INTO #training
+    FROM dbo.fact_opportunities
+    WHERE ResolutionDate BETWEEN @TrainingStart AND @TrainingEnd;
+
+    -- WinPct
+    INSERT INTO #seg_work
+        (GranularityLevel, OutcomeName, StatusKey,
+         ServiceLineKey, ClientTypeKey, IndustryKey, NewVsExistingKey, LeadSourceKey,
+         OutcomeEstimate, ObservationCount,
+         Cat1Dropped, Cat2Dropped, Cat3Dropped, Cat4Dropped, Cat5Dropped)
+    SELECT 0, 'WinPct', @SK_Open,
+           ServiceLineKey, ClientTypeKey, IndustryKey, NewVsExistingKey, LeadSourceKey,
+           AVG(CAST(CASE WHEN SoldDate IS NOT NULL THEN 1.0 ELSE 0.0 END AS DECIMAL(18,6))),
+           COUNT(*), 0,0,0,0,0
+    FROM #training GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,LeadSourceKey
+    UNION ALL
+    SELECT 1,'WinPct',@SK_Open,ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,NULL,
+           AVG(CAST(CASE WHEN SoldDate IS NOT NULL THEN 1.0 ELSE 0.0 END AS DECIMAL(18,6))),COUNT(*),0,0,0,0,1
+    FROM #training GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey
+    UNION ALL
+    SELECT 2,'WinPct',@SK_Open,ServiceLineKey,ClientTypeKey,IndustryKey,NULL,NULL,
+           AVG(CAST(CASE WHEN SoldDate IS NOT NULL THEN 1.0 ELSE 0.0 END AS DECIMAL(18,6))),COUNT(*),0,0,0,1,1
+    FROM #training GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey
+    UNION ALL
+    SELECT 3,'WinPct',@SK_Open,ServiceLineKey,ClientTypeKey,NULL,NULL,NULL,
+           AVG(CAST(CASE WHEN SoldDate IS NOT NULL THEN 1.0 ELSE 0.0 END AS DECIMAL(18,6))),COUNT(*),0,0,1,1,1
+    FROM #training GROUP BY ServiceLineKey,ClientTypeKey
+    UNION ALL
+    SELECT 4,'WinPct',@SK_Open,ServiceLineKey,NULL,NULL,NULL,NULL,
+           AVG(CAST(CASE WHEN SoldDate IS NOT NULL THEN 1.0 ELSE 0.0 END AS DECIMAL(18,6))),COUNT(*),0,1,1,1,1
+    FROM #training GROUP BY ServiceLineKey
+    UNION ALL
+    SELECT 5,'WinPct',@SK_Open,NULL,NULL,NULL,NULL,NULL,
+           AVG(CAST(CASE WHEN SoldDate IS NOT NULL THEN 1.0 ELSE 0.0 END AS DECIMAL(18,6))),COUNT(*),1,1,1,1,1
+    FROM #training;
+
+    -- NetFees
+    INSERT INTO #seg_work
+        (GranularityLevel,OutcomeName,StatusKey,ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,LeadSourceKey,
+         OutcomeEstimate,ObservationCount,Cat1Dropped,Cat2Dropped,Cat3Dropped,Cat4Dropped,Cat5Dropped)
+    SELECT agg.GranularityLevel,'NetFees',s.StatusKey,agg.slk,agg.ctk,agg.ink,agg.nvek,agg.lsk,
+           agg.est,agg.obs,agg.c1,agg.c2,agg.c3,agg.c4,agg.c5
+    FROM (
+        SELECT 0 GranularityLevel,ServiceLineKey slk,ClientTypeKey ctk,IndustryKey ink,NewVsExistingKey nvek,LeadSourceKey lsk,
+               AVG(NetFees) est,COUNT(*) obs,CAST(0 AS BIT) c1,CAST(0 AS BIT) c2,CAST(0 AS BIT) c3,CAST(0 AS BIT) c4,CAST(0 AS BIT) c5
+        FROM #training WHERE NetFees IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,LeadSourceKey
+        UNION ALL
+        SELECT 1,ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,NULL,AVG(NetFees),COUNT(*),0,0,0,0,1
+        FROM #training WHERE NetFees IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey
+        UNION ALL
+        SELECT 2,ServiceLineKey,ClientTypeKey,IndustryKey,NULL,NULL,AVG(NetFees),COUNT(*),0,0,0,1,1
+        FROM #training WHERE NetFees IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey
+        UNION ALL
+        SELECT 3,ServiceLineKey,ClientTypeKey,NULL,NULL,NULL,AVG(NetFees),COUNT(*),0,0,1,1,1
+        FROM #training WHERE NetFees IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey
+        UNION ALL
+        SELECT 4,ServiceLineKey,NULL,NULL,NULL,NULL,AVG(NetFees),COUNT(*),0,1,1,1,1
+        FROM #training WHERE NetFees IS NOT NULL GROUP BY ServiceLineKey
+        UNION ALL
+        SELECT 5,NULL,NULL,NULL,NULL,NULL,AVG(NetFees),COUNT(*),1,1,1,1,1
+        FROM #training WHERE NetFees IS NOT NULL
+    ) agg CROSS JOIN dbo.dim_status s;
+
+    -- MarginPct
+    INSERT INTO #seg_work
+        (GranularityLevel,OutcomeName,StatusKey,ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,LeadSourceKey,
+         OutcomeEstimate,ObservationCount,Cat1Dropped,Cat2Dropped,Cat3Dropped,Cat4Dropped,Cat5Dropped)
+    SELECT agg.GranularityLevel,'MarginPct',s.StatusKey,agg.slk,agg.ctk,agg.ink,agg.nvek,agg.lsk,
+           agg.est,agg.obs,agg.c1,agg.c2,agg.c3,agg.c4,agg.c5
+    FROM (
+        SELECT 0 GranularityLevel,ServiceLineKey slk,ClientTypeKey ctk,IndustryKey ink,NewVsExistingKey nvek,LeadSourceKey lsk,
+               AVG(MarginPct) est,COUNT(*) obs,CAST(0 AS BIT) c1,CAST(0 AS BIT) c2,CAST(0 AS BIT) c3,CAST(0 AS BIT) c4,CAST(0 AS BIT) c5
+        FROM #training WHERE MarginPct IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,LeadSourceKey
+        UNION ALL
+        SELECT 1,ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,NULL,AVG(MarginPct),COUNT(*),0,0,0,0,1
+        FROM #training WHERE MarginPct IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey
+        UNION ALL
+        SELECT 2,ServiceLineKey,ClientTypeKey,IndustryKey,NULL,NULL,AVG(MarginPct),COUNT(*),0,0,0,1,1
+        FROM #training WHERE MarginPct IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey
+        UNION ALL
+        SELECT 3,ServiceLineKey,ClientTypeKey,NULL,NULL,NULL,AVG(MarginPct),COUNT(*),0,0,1,1,1
+        FROM #training WHERE MarginPct IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey
+        UNION ALL
+        SELECT 4,ServiceLineKey,NULL,NULL,NULL,NULL,AVG(MarginPct),COUNT(*),0,1,1,1,1
+        FROM #training WHERE MarginPct IS NOT NULL GROUP BY ServiceLineKey
+        UNION ALL
+        SELECT 5,NULL,NULL,NULL,NULL,NULL,AVG(MarginPct),COUNT(*),1,1,1,1,1
+        FROM #training WHERE MarginPct IS NOT NULL
+    ) agg CROSS JOIN dbo.dim_status s;
+
+    -- DaysSellToStart
+    INSERT INTO #seg_work
+        (GranularityLevel,OutcomeName,StatusKey,ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,LeadSourceKey,
+         OutcomeEstimate,ObservationCount,Cat1Dropped,Cat2Dropped,Cat3Dropped,Cat4Dropped,Cat5Dropped)
+    SELECT 0,'DaysSellToStart',@SK_SNS,ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,LeadSourceKey,
+           AVG(CAST(DaysSellToStart AS DECIMAL(18,6))),COUNT(*),0,0,0,0,0
+    FROM #training WHERE DaysSellToStart IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,LeadSourceKey
+    UNION ALL
+    SELECT 1,'DaysSellToStart',@SK_SNS,ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,NULL,
+           AVG(CAST(DaysSellToStart AS DECIMAL(18,6))),COUNT(*),0,0,0,0,1
+    FROM #training WHERE DaysSellToStart IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey
+    UNION ALL
+    SELECT 2,'DaysSellToStart',@SK_SNS,ServiceLineKey,ClientTypeKey,IndustryKey,NULL,NULL,
+           AVG(CAST(DaysSellToStart AS DECIMAL(18,6))),COUNT(*),0,0,0,1,1
+    FROM #training WHERE DaysSellToStart IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey
+    UNION ALL
+    SELECT 3,'DaysSellToStart',@SK_SNS,ServiceLineKey,ClientTypeKey,NULL,NULL,NULL,
+           AVG(CAST(DaysSellToStart AS DECIMAL(18,6))),COUNT(*),0,0,1,1,1
+    FROM #training WHERE DaysSellToStart IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey
+    UNION ALL
+    SELECT 4,'DaysSellToStart',@SK_SNS,ServiceLineKey,NULL,NULL,NULL,NULL,
+           AVG(CAST(DaysSellToStart AS DECIMAL(18,6))),COUNT(*),0,1,1,1,1
+    FROM #training WHERE DaysSellToStart IS NOT NULL GROUP BY ServiceLineKey
+    UNION ALL
+    SELECT 5,'DaysSellToStart',@SK_SNS,NULL,NULL,NULL,NULL,NULL,
+           AVG(CAST(DaysSellToStart AS DECIMAL(18,6))),COUNT(*),1,1,1,1,1
+    FROM #training WHERE DaysSellToStart IS NOT NULL;
+
+    -- DaysStartTo50Pct
+    INSERT INTO #seg_work
+        (GranularityLevel,OutcomeName,StatusKey,ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,LeadSourceKey,
+         OutcomeEstimate,ObservationCount,Cat1Dropped,Cat2Dropped,Cat3Dropped,Cat4Dropped,Cat5Dropped)
+    SELECT 0,'DaysStartTo50Pct',@SK_Start,ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,LeadSourceKey,
+           AVG(CAST(DaysStartTo50Pct AS DECIMAL(18,6))),COUNT(*),0,0,0,0,0
+    FROM #training WHERE DaysStartTo50Pct IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,LeadSourceKey
+    UNION ALL
+    SELECT 1,'DaysStartTo50Pct',@SK_Start,ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,NULL,
+           AVG(CAST(DaysStartTo50Pct AS DECIMAL(18,6))),COUNT(*),0,0,0,0,1
+    FROM #training WHERE DaysStartTo50Pct IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey
+    UNION ALL
+    SELECT 2,'DaysStartTo50Pct',@SK_Start,ServiceLineKey,ClientTypeKey,IndustryKey,NULL,NULL,
+           AVG(CAST(DaysStartTo50Pct AS DECIMAL(18,6))),COUNT(*),0,0,0,1,1
+    FROM #training WHERE DaysStartTo50Pct IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey
+    UNION ALL
+    SELECT 3,'DaysStartTo50Pct',@SK_Start,ServiceLineKey,ClientTypeKey,NULL,NULL,NULL,
+           AVG(CAST(DaysStartTo50Pct AS DECIMAL(18,6))),COUNT(*),0,0,1,1,1
+    FROM #training WHERE DaysStartTo50Pct IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey
+    UNION ALL
+    SELECT 4,'DaysStartTo50Pct',@SK_Start,ServiceLineKey,NULL,NULL,NULL,NULL,
+           AVG(CAST(DaysStartTo50Pct AS DECIMAL(18,6))),COUNT(*),0,1,1,1,1
+    FROM #training WHERE DaysStartTo50Pct IS NOT NULL GROUP BY ServiceLineKey
+    UNION ALL
+    SELECT 5,'DaysStartTo50Pct',@SK_Start,NULL,NULL,NULL,NULL,NULL,
+           AVG(CAST(DaysStartTo50Pct AS DECIMAL(18,6))),COUNT(*),1,1,1,1,1
+    FROM #training WHERE DaysStartTo50Pct IS NOT NULL;
+
+    -- DaysStartTo100Pct
+    INSERT INTO #seg_work
+        (GranularityLevel,OutcomeName,StatusKey,ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,LeadSourceKey,
+         OutcomeEstimate,ObservationCount,Cat1Dropped,Cat2Dropped,Cat3Dropped,Cat4Dropped,Cat5Dropped)
+    SELECT 0,'DaysStartTo100Pct',@SK_Start,ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,LeadSourceKey,
+           AVG(CAST(DaysStartTo100Pct AS DECIMAL(18,6))),COUNT(*),0,0,0,0,0
+    FROM #training WHERE DaysStartTo100Pct IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,LeadSourceKey
+    UNION ALL
+    SELECT 1,'DaysStartTo100Pct',@SK_Start,ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey,NULL,
+           AVG(CAST(DaysStartTo100Pct AS DECIMAL(18,6))),COUNT(*),0,0,0,0,1
+    FROM #training WHERE DaysStartTo100Pct IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey,NewVsExistingKey
+    UNION ALL
+    SELECT 2,'DaysStartTo100Pct',@SK_Start,ServiceLineKey,ClientTypeKey,IndustryKey,NULL,NULL,
+           AVG(CAST(DaysStartTo100Pct AS DECIMAL(18,6))),COUNT(*),0,0,0,1,1
+    FROM #training WHERE DaysStartTo100Pct IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey,IndustryKey
+    UNION ALL
+    SELECT 3,'DaysStartTo100Pct',@SK_Start,ServiceLineKey,ClientTypeKey,NULL,NULL,NULL,
+           AVG(CAST(DaysStartTo100Pct AS DECIMAL(18,6))),COUNT(*),0,0,1,1,1
+    FROM #training WHERE DaysStartTo100Pct IS NOT NULL GROUP BY ServiceLineKey,ClientTypeKey
+    UNION ALL
+    SELECT 4,'DaysStartTo100Pct',@SK_Start,ServiceLineKey,NULL,NULL,NULL,NULL,
+           AVG(CAST(DaysStartTo100Pct AS DECIMAL(18,6))),COUNT(*),0,1,1,1,1
+    FROM #training WHERE DaysStartTo100Pct IS NOT NULL GROUP BY ServiceLineKey
+    UNION ALL
+    SELECT 5,'DaysStartTo100Pct',@SK_Start,NULL,NULL,NULL,NULL,NULL,
+           AVG(CAST(DaysStartTo100Pct AS DECIMAL(18,6))),COUNT(*),1,1,1,1,1
+    FROM #training WHERE DaysStartTo100Pct IS NOT NULL;
+
+    -- Delete in correct FK order: training summary and job results before segments
+    DELETE FROM dbo.analytical_training_summary WHERE BuildRunKey <> @BuildRunKey;
+    DELETE FROM dbo.analytical_test_results     WHERE BuildRunKey <> @BuildRunKey;
+    DELETE FROM dbo.analytical_job_results      WHERE BuildRunKey <> @BuildRunKey;
+    DELETE FROM dbo.analytical_segments         WHERE BuildRunKey <> @BuildRunKey;
+
+    INSERT INTO dbo.analytical_segments (
+        GranularityLevel, OutcomeName, StatusKey,
+        ServiceLineKey, ClientTypeKey, IndustryKey, NewVsExistingKey, LeadSourceKey,
+        OutcomeEstimate, ObservationCount,
+        Cat1Dropped, Cat2Dropped, Cat3Dropped, Cat4Dropped, Cat5Dropped,
+        BuildRunKey
+    )
+    SELECT
+        GranularityLevel, OutcomeName, StatusKey,
+        ServiceLineKey, ClientTypeKey, IndustryKey, NewVsExistingKey, LeadSourceKey,
+        OutcomeEstimate, ObservationCount,
+        Cat1Dropped, Cat2Dropped, Cat3Dropped, Cat4Dropped, Cat5Dropped,
+        @BuildRunKey
+    FROM #seg_work;
+
+    DROP TABLE IF EXISTS #training;
+    DROP TABLE IF EXISTS #seg_work;
+END;
+GO
+
+
+/* ============================================================
    SECTION 4 — UPDATE usp_RunBuild
    ============================================================
    Adds calls to usp_BuildTrainingSummary and usp_BuildTestResults
