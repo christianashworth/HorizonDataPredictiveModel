@@ -1,0 +1,1250 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1550,
+  "model": {
+    "culture": "en-US",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "dataSources": [
+      {
+        "type": "structured",
+        "name": "SqlServer localhost\\SQLEXPRESS PipelineAnalytics",
+        "connectionDetails": {
+          "protocol": "tds",
+          "address": {
+            "server": "localhost\\SQLEXPRESS",
+            "database": "PipelineAnalytics"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "options": {},
+        "credential": {
+          "AuthenticationKind": "Windows",
+          "kind": "SQL",
+          "path": "localhost\\SQLEXPRESS;PipelineAnalytics",
+          "EncryptConnection": false
+        }
+      }
+    ],
+    "tables": [
+      {
+        "name": "dim_service_line",
+        "columns": [
+          {
+            "name": "ServiceLineKey",
+            "dataType": "int64",
+            "sourceColumn": "ServiceLineKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "ServiceLineName",
+            "dataType": "string",
+            "sourceColumn": "ServiceLineName",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Sql.Database(\"localhost\\SQLEXPRESS\", \"PipelineAnalytics\"),",
+                "    data = Source{[Schema=\"dbo\",Item=\"dim_service_line\"]}[Data]",
+                "in",
+                "    data"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_client_type",
+        "columns": [
+          {
+            "name": "ClientTypeKey",
+            "dataType": "int64",
+            "sourceColumn": "ClientTypeKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "ClientTypeName",
+            "dataType": "string",
+            "sourceColumn": "ClientTypeName",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Sql.Database(\"localhost\\SQLEXPRESS\", \"PipelineAnalytics\"),",
+                "    data = Source{[Schema=\"dbo\",Item=\"dim_client_type\"]}[Data]",
+                "in",
+                "    data"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_industry",
+        "columns": [
+          {
+            "name": "IndustryKey",
+            "dataType": "int64",
+            "sourceColumn": "IndustryKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "IndustryName",
+            "dataType": "string",
+            "sourceColumn": "IndustryName",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Sql.Database(\"localhost\\SQLEXPRESS\", \"PipelineAnalytics\"),",
+                "    data = Source{[Schema=\"dbo\",Item=\"dim_industry\"]}[Data]",
+                "in",
+                "    data"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_new_vs_existing",
+        "columns": [
+          {
+            "name": "NewVsExistingKey",
+            "dataType": "int64",
+            "sourceColumn": "NewVsExistingKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "NewVsExistingName",
+            "dataType": "string",
+            "sourceColumn": "NewVsExistingName",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Sql.Database(\"localhost\\SQLEXPRESS\", \"PipelineAnalytics\"),",
+                "    data = Source{[Schema=\"dbo\",Item=\"dim_new_vs_existing\"]}[Data]",
+                "in",
+                "    data"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_lead_source",
+        "columns": [
+          {
+            "name": "LeadSourceKey",
+            "dataType": "int64",
+            "sourceColumn": "LeadSourceKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "LeadSourceName",
+            "dataType": "string",
+            "sourceColumn": "LeadSourceName",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Sql.Database(\"localhost\\SQLEXPRESS\", \"PipelineAnalytics\"),",
+                "    data = Source{[Schema=\"dbo\",Item=\"dim_lead_source\"]}[Data]",
+                "in",
+                "    data"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_status",
+        "columns": [
+          {
+            "name": "StatusKey",
+            "dataType": "int64",
+            "sourceColumn": "StatusKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "StatusName",
+            "dataType": "string",
+            "sourceColumn": "StatusName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "StatusDescription",
+            "dataType": "string",
+            "sourceColumn": "StatusDescription",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Sql.Database(\"localhost\\SQLEXPRESS\", \"PipelineAnalytics\"),",
+                "    data = Source{[Schema=\"dbo\",Item=\"dim_status\"]}[Data]",
+                "in",
+                "    data"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "fact_opportunities",
+        "columns": [
+          {
+            "name": "OpportunityID",
+            "dataType": "string",
+            "sourceColumn": "OpportunityID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ServiceLineKey",
+            "dataType": "int64",
+            "sourceColumn": "ServiceLineKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "ClientTypeKey",
+            "dataType": "int64",
+            "sourceColumn": "ClientTypeKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "IndustryKey",
+            "dataType": "int64",
+            "sourceColumn": "IndustryKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "NewVsExistingKey",
+            "dataType": "int64",
+            "sourceColumn": "NewVsExistingKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "LeadSourceKey",
+            "dataType": "int64",
+            "sourceColumn": "LeadSourceKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "StatusKey",
+            "dataType": "int64",
+            "sourceColumn": "StatusKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "CreatedDate",
+            "dataType": "dateTime",
+            "sourceColumn": "CreatedDate",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "SoldDate",
+            "dataType": "dateTime",
+            "sourceColumn": "SoldDate",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "ClosedLostDate",
+            "dataType": "dateTime",
+            "sourceColumn": "ClosedLostDate",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "StartDate",
+            "dataType": "dateTime",
+            "sourceColumn": "StartDate",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "Pct50CompleteDate",
+            "dataType": "dateTime",
+            "sourceColumn": "Pct50CompleteDate",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "Pct100CompleteDate",
+            "dataType": "dateTime",
+            "sourceColumn": "Pct100CompleteDate",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "ResolutionDate",
+            "dataType": "dateTime",
+            "sourceColumn": "ResolutionDate",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "NetFees",
+            "dataType": "decimal",
+            "sourceColumn": "NetFees",
+            "summarizeBy": "sum",
+            "formatString": "$#,##0"
+          },
+          {
+            "name": "MarginPct",
+            "dataType": "decimal",
+            "sourceColumn": "MarginPct",
+            "summarizeBy": "average",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "MarginDollars",
+            "dataType": "decimal",
+            "sourceColumn": "MarginDollars",
+            "summarizeBy": "sum",
+            "formatString": "$#,##0"
+          },
+          {
+            "name": "DaysSellToStart",
+            "dataType": "int64",
+            "sourceColumn": "DaysSellToStart",
+            "summarizeBy": "average"
+          },
+          {
+            "name": "DaysStartTo50Pct",
+            "dataType": "int64",
+            "sourceColumn": "DaysStartTo50Pct",
+            "summarizeBy": "average"
+          },
+          {
+            "name": "DaysStartTo100Pct",
+            "dataType": "int64",
+            "sourceColumn": "DaysStartTo100Pct",
+            "summarizeBy": "average"
+          },
+          {
+            "name": "LoadTimestamp",
+            "dataType": "dateTime",
+            "sourceColumn": "LoadTimestamp",
+            "summarizeBy": "none",
+            "isHidden": true
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Sql.Database(\"localhost\\SQLEXPRESS\", \"PipelineAnalytics\"),",
+                "    data = Source{[Schema=\"dbo\",Item=\"fact_opportunities\"]}[Data]",
+                "in",
+                "    data"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "analytical_training_summary",
+        "columns": [
+          {
+            "name": "TrainingSummaryKey",
+            "dataType": "int64",
+            "sourceColumn": "TrainingSummaryKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "SegmentKey",
+            "dataType": "int64",
+            "sourceColumn": "SegmentKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "BuildRunKey",
+            "dataType": "int64",
+            "sourceColumn": "BuildRunKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "OutcomeName",
+            "dataType": "string",
+            "sourceColumn": "OutcomeName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "OutcomeEstimate",
+            "dataType": "decimal",
+            "sourceColumn": "OutcomeEstimate",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ObservationCount",
+            "dataType": "int64",
+            "sourceColumn": "ObservationCount",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "GranularityLevel",
+            "dataType": "int64",
+            "sourceColumn": "GranularityLevel",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "CategoriesDropped",
+            "dataType": "int64",
+            "sourceColumn": "CategoriesDropped",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Cat1Dropped",
+            "dataType": "boolean",
+            "sourceColumn": "Cat1Dropped",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Cat2Dropped",
+            "dataType": "boolean",
+            "sourceColumn": "Cat2Dropped",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Cat3Dropped",
+            "dataType": "boolean",
+            "sourceColumn": "Cat3Dropped",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Cat4Dropped",
+            "dataType": "boolean",
+            "sourceColumn": "Cat4Dropped",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Cat5Dropped",
+            "dataType": "boolean",
+            "sourceColumn": "Cat5Dropped",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "StatusName",
+            "dataType": "string",
+            "sourceColumn": "StatusName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ServiceLineName",
+            "dataType": "string",
+            "sourceColumn": "ServiceLineName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ClientTypeName",
+            "dataType": "string",
+            "sourceColumn": "ClientTypeName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "IndustryName",
+            "dataType": "string",
+            "sourceColumn": "IndustryName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "NewVsExistingName",
+            "dataType": "string",
+            "sourceColumn": "NewVsExistingName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "LeadSourceName",
+            "dataType": "string",
+            "sourceColumn": "LeadSourceName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SegmentLabel",
+            "dataType": "string",
+            "sourceColumn": "SegmentLabel",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DroppedCategoriesLabel",
+            "dataType": "string",
+            "sourceColumn": "DroppedCategoriesLabel",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Sql.Database(\"localhost\\SQLEXPRESS\", \"PipelineAnalytics\"),",
+                "    data = Source{[Schema=\"dbo\",Item=\"analytical_training_summary\"]}[Data]",
+                "in",
+                "    data"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "analytical_job_results",
+        "columns": [
+          {
+            "name": "OpportunityID",
+            "dataType": "string",
+            "sourceColumn": "OpportunityID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SegmentKey",
+            "dataType": "int64",
+            "sourceColumn": "SegmentKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "BuildRunKey",
+            "dataType": "int64",
+            "sourceColumn": "BuildRunKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "EstimatedWinPct",
+            "dataType": "decimal",
+            "sourceColumn": "EstimatedWinPct",
+            "summarizeBy": "none",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "EstimatedNetFees",
+            "dataType": "decimal",
+            "sourceColumn": "EstimatedNetFees",
+            "summarizeBy": "sum",
+            "formatString": "$#,##0"
+          },
+          {
+            "name": "EstimatedMarginPct",
+            "dataType": "decimal",
+            "sourceColumn": "EstimatedMarginPct",
+            "summarizeBy": "none",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "EstimatedMarginDollars",
+            "dataType": "decimal",
+            "sourceColumn": "EstimatedMarginDollars",
+            "summarizeBy": "sum",
+            "formatString": "$#,##0"
+          },
+          {
+            "name": "EstimatedSellDate",
+            "dataType": "dateTime",
+            "sourceColumn": "EstimatedSellDate",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "EstimatedStartDate",
+            "dataType": "dateTime",
+            "sourceColumn": "EstimatedStartDate",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "EstimatedPct50Date",
+            "dataType": "dateTime",
+            "sourceColumn": "EstimatedPct50Date",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "EstimatedPct100Date",
+            "dataType": "dateTime",
+            "sourceColumn": "EstimatedPct100Date",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "DatasetType",
+            "dataType": "string",
+            "sourceColumn": "DatasetType",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Sql.Database(\"localhost\\SQLEXPRESS\", \"PipelineAnalytics\"),",
+                "    data = Source{[Schema=\"dbo\",Item=\"analytical_job_results\"]}[Data]",
+                "in",
+                "    data"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "analytical_test_results",
+        "columns": [
+          {
+            "name": "TestResultKey",
+            "dataType": "int64",
+            "sourceColumn": "TestResultKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "OpportunityID",
+            "dataType": "string",
+            "sourceColumn": "OpportunityID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SegmentKey",
+            "dataType": "int64",
+            "sourceColumn": "SegmentKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "BuildRunKey",
+            "dataType": "int64",
+            "sourceColumn": "BuildRunKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "OutcomeName",
+            "dataType": "string",
+            "sourceColumn": "OutcomeName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "PredictedValue",
+            "dataType": "decimal",
+            "sourceColumn": "PredictedValue",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ActualValue",
+            "dataType": "decimal",
+            "sourceColumn": "ActualValue",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Error",
+            "dataType": "decimal",
+            "sourceColumn": "Error",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "AbsoluteError",
+            "dataType": "decimal",
+            "sourceColumn": "AbsoluteError",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SquaredError",
+            "dataType": "decimal",
+            "sourceColumn": "SquaredError",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "PercentageError",
+            "dataType": "decimal",
+            "sourceColumn": "PercentageError",
+            "summarizeBy": "none",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "GranularityLevel",
+            "dataType": "int64",
+            "sourceColumn": "GranularityLevel",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "CategoriesDropped",
+            "dataType": "int64",
+            "sourceColumn": "CategoriesDropped",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "StatusName",
+            "dataType": "string",
+            "sourceColumn": "StatusName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ServiceLineName",
+            "dataType": "string",
+            "sourceColumn": "ServiceLineName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ClientTypeName",
+            "dataType": "string",
+            "sourceColumn": "ClientTypeName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "IndustryName",
+            "dataType": "string",
+            "sourceColumn": "IndustryName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "NewVsExistingName",
+            "dataType": "string",
+            "sourceColumn": "NewVsExistingName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "LeadSourceName",
+            "dataType": "string",
+            "sourceColumn": "LeadSourceName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SegmentLabel",
+            "dataType": "string",
+            "sourceColumn": "SegmentLabel",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Sql.Database(\"localhost\\SQLEXPRESS\", \"PipelineAnalytics\"),",
+                "    data = Source{[Schema=\"dbo\",Item=\"analytical_test_results\"]}[Data]",
+                "in",
+                "    data"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "analytical_pipeline_results",
+        "columns": [
+          {
+            "name": "PipelineResultKey",
+            "dataType": "int64",
+            "sourceColumn": "PipelineResultKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "PeriodMonth",
+            "dataType": "dateTime",
+            "sourceColumn": "PeriodMonth",
+            "summarizeBy": "none",
+            "formatString": "MMM YYYY"
+          },
+          {
+            "name": "EstimatedJobCount",
+            "dataType": "int64",
+            "sourceColumn": "EstimatedJobCount",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "EstimatedNetFees",
+            "dataType": "decimal",
+            "sourceColumn": "EstimatedNetFees",
+            "summarizeBy": "sum",
+            "formatString": "$#,##0"
+          },
+          {
+            "name": "EstimatedMarginDollars",
+            "dataType": "decimal",
+            "sourceColumn": "EstimatedMarginDollars",
+            "summarizeBy": "sum",
+            "formatString": "$#,##0"
+          },
+          {
+            "name": "MedianPct50Date",
+            "dataType": "dateTime",
+            "sourceColumn": "MedianPct50Date",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "MedianPct100Date",
+            "dataType": "dateTime",
+            "sourceColumn": "MedianPct100Date",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "BuildRunKey",
+            "dataType": "int64",
+            "sourceColumn": "BuildRunKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Sql.Database(\"localhost\\SQLEXPRESS\", \"PipelineAnalytics\"),",
+                "    data = Source{[Schema=\"dbo\",Item=\"analytical_pipeline_results\"]}[Data]",
+                "in",
+                "    data"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "log_build_runs",
+        "columns": [
+          {
+            "name": "BuildRunKey",
+            "dataType": "int64",
+            "sourceColumn": "BuildRunKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "RunTimestamp",
+            "dataType": "dateTime",
+            "sourceColumn": "RunTimestamp",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "MinJobsPerSegment",
+            "dataType": "int64",
+            "sourceColumn": "MinJobsPerSegment",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "TrainingStart",
+            "dataType": "dateTime",
+            "sourceColumn": "TrainingStart",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "TrainingEnd",
+            "dataType": "dateTime",
+            "sourceColumn": "TrainingEnd",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "TestStart",
+            "dataType": "dateTime",
+            "sourceColumn": "TestStart",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "TestEnd",
+            "dataType": "dateTime",
+            "sourceColumn": "TestEnd",
+            "summarizeBy": "none",
+            "formatString": "Short Date"
+          },
+          {
+            "name": "RowsProcessed",
+            "dataType": "int64",
+            "sourceColumn": "RowsProcessed",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SegmentsBuilt",
+            "dataType": "int64",
+            "sourceColumn": "SegmentsBuilt",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "JobResultsWritten",
+            "dataType": "int64",
+            "sourceColumn": "JobResultsWritten",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Status",
+            "dataType": "string",
+            "sourceColumn": "Status",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "StatusMessage",
+            "dataType": "string",
+            "sourceColumn": "StatusMessage",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Sql.Database(\"localhost\\SQLEXPRESS\", \"PipelineAnalytics\"),",
+                "    data = Source{[Schema=\"dbo\",Item=\"log_build_runs\"]}[Data]",
+                "in",
+                "    data"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "_Measures",
+        "isHidden": true,
+        "columns": [
+          {
+            "name": "Placeholder",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "Placeholder"
+          }
+        ],
+        "measures": [
+          {
+            "name": "SSE",
+            "expression": "SUMX(analytical_test_results, analytical_test_results[SquaredError])",
+            "formatString": "#,##0.00",
+            "displayFolder": "Error Metrics",
+            "description": "Sum of Squared Errors \u2014 total squared prediction error. Weights large misses more heavily than MAE."
+          },
+          {
+            "name": "MSE",
+            "expression": "AVERAGEX(analytical_test_results, analytical_test_results[SquaredError])",
+            "formatString": "#,##0.00",
+            "displayFolder": "Error Metrics",
+            "description": "Mean Squared Error \u2014 average squared prediction error per record."
+          },
+          {
+            "name": "RMSE",
+            "expression": "SQRT(AVERAGEX(analytical_test_results, analytical_test_results[SquaredError]))",
+            "formatString": "#,##0.00",
+            "displayFolder": "Error Metrics",
+            "description": "Root Mean Squared Error \u2014 in the same units as the outcome being measured. Lower is better."
+          },
+          {
+            "name": "MAE",
+            "expression": "AVERAGEX(analytical_test_results, analytical_test_results[AbsoluteError])",
+            "formatString": "#,##0.00",
+            "displayFolder": "Error Metrics",
+            "description": "Mean Absolute Error \u2014 average size of prediction error regardless of direction."
+          },
+          {
+            "name": "MAPE",
+            "expression": "AVERAGEX(FILTER(analytical_test_results, NOT ISBLANK(analytical_test_results[PercentageError])), ABS(analytical_test_results[PercentageError]))",
+            "formatString": "0.0%",
+            "displayFolder": "Error Metrics",
+            "description": "Mean Absolute Percentage Error \u2014 percentage miss normalised by outcome scale. Allows comparison across outcomes with different magnitudes."
+          },
+          {
+            "name": "Mean Error (Bias)",
+            "expression": "AVERAGEX(analytical_test_results, analytical_test_results[Error])",
+            "formatString": "+#,##0.00;-#,##0.00;0.00",
+            "displayFolder": "Error Metrics",
+            "description": "Mean Error \u2014 directional bias. Positive = model systematically overestimates. Negative = underestimates."
+          },
+          {
+            "name": "Expected Wins",
+            "expression": "CALCULATE(SUM(analytical_test_results[PredictedValue]), analytical_test_results[OutcomeName] = \"WinPct\")",
+            "formatString": "#,##0.0",
+            "displayFolder": "Win % Calibration",
+            "description": "Sum of predicted win probabilities \u2014 the number of wins the model expected. Compare to Actual Wins."
+          },
+          {
+            "name": "Actual Wins",
+            "expression": "CALCULATE(SUM(analytical_test_results[ActualValue]), analytical_test_results[OutcomeName] = \"WinPct\")",
+            "formatString": "#,##0",
+            "displayFolder": "Win % Calibration",
+            "description": "Actual number of won opportunities in the test dataset."
+          },
+          {
+            "name": "Win Rate Predicted",
+            "expression": "DIVIDE([Expected Wins], CALCULATE(COUNTROWS(analytical_test_results), analytical_test_results[OutcomeName] = \"WinPct\"))",
+            "formatString": "0.0%",
+            "displayFolder": "Win % Calibration",
+            "description": "Average predicted win probability across test records."
+          },
+          {
+            "name": "Win Rate Actual",
+            "expression": "DIVIDE([Actual Wins], CALCULATE(COUNTROWS(analytical_test_results), analytical_test_results[OutcomeName] = \"WinPct\"))",
+            "formatString": "0.0%",
+            "displayFolder": "Win % Calibration",
+            "description": "Actual win rate observed in the test dataset."
+          },
+          {
+            "name": "Win Rate Calibration Gap",
+            "expression": "[Win Rate Predicted] - [Win Rate Actual]",
+            "formatString": "+0.0%;-0.0%;0.0%",
+            "displayFolder": "Win % Calibration",
+            "description": "Difference between predicted and actual win rate. Near zero = well calibrated model."
+          },
+          {
+            "name": "Total Estimated Fees",
+            "expression": "SUM(analytical_pipeline_results[EstimatedNetFees])",
+            "formatString": "$#,##0",
+            "displayFolder": "Pipeline",
+            "description": "Total estimated net fees across all months in scope."
+          },
+          {
+            "name": "Total Estimated Margin",
+            "expression": "SUM(analytical_pipeline_results[EstimatedMarginDollars])",
+            "formatString": "$#,##0",
+            "displayFolder": "Pipeline",
+            "description": "Total estimated margin dollars across all months in scope."
+          },
+          {
+            "name": "Total Estimated Jobs",
+            "expression": "SUM(analytical_pipeline_results[EstimatedJobCount])",
+            "formatString": "#,##0",
+            "displayFolder": "Pipeline",
+            "description": "Total estimated number of jobs starting across all months in scope."
+          },
+          {
+            "name": "Avg Estimated Margin %",
+            "expression": "DIVIDE([Total Estimated Margin], [Total Estimated Fees])",
+            "formatString": "0.0%",
+            "displayFolder": "Pipeline",
+            "description": "Blended estimated margin percentage across all jobs in scope."
+          },
+          {
+            "name": "Current Pipeline Jobs",
+            "expression": "CALCULATE(COUNTROWS(analytical_job_results), analytical_job_results[DatasetType] = \"Current\")",
+            "formatString": "#,##0",
+            "displayFolder": "Job Predictions",
+            "description": "Number of opportunities and jobs in the current pipeline."
+          },
+          {
+            "name": "Current Pipeline Estimated Fees",
+            "expression": "CALCULATE(SUM(analytical_job_results[EstimatedNetFees]), analytical_job_results[DatasetType] = \"Current\")",
+            "formatString": "$#,##0",
+            "displayFolder": "Job Predictions",
+            "description": "Total estimated net fees across current pipeline records."
+          },
+          {
+            "name": "Current Pipeline Estimated Margin",
+            "expression": "CALCULATE(SUM(analytical_job_results[EstimatedMarginDollars]), analytical_job_results[DatasetType] = \"Current\")",
+            "formatString": "$#,##0",
+            "displayFolder": "Job Predictions",
+            "description": "Total estimated margin dollars across current pipeline records."
+          },
+          {
+            "name": "Probability-Weighted Fees",
+            "expression": "SUMX(FILTER(analytical_job_results, analytical_job_results[DatasetType] = \"Current\" && NOT ISBLANK(analytical_job_results[EstimatedWinPct])), analytical_job_results[EstimatedNetFees] * analytical_job_results[EstimatedWinPct])",
+            "formatString": "$#,##0",
+            "displayFolder": "Job Predictions",
+            "description": "Estimated net fees weighted by win probability \u2014 the expected value of the open opportunity pipeline."
+          },
+          {
+            "name": "Total Segments",
+            "expression": "DISTINCTCOUNT(analytical_training_summary[SegmentKey])",
+            "formatString": "#,##0",
+            "displayFolder": "Training",
+            "description": "Total number of distinct segment-outcome combinations built from the training data."
+          },
+          {
+            "name": "Segments With Dropped Categories",
+            "expression": "CALCULATE(DISTINCTCOUNT(analytical_training_summary[SegmentKey]), analytical_training_summary[CategoriesDropped] > 0)",
+            "formatString": "#,##0",
+            "displayFolder": "Training",
+            "description": "Segments where at least one category was dropped to meet the minimum observation threshold."
+          },
+          {
+            "name": "Avg Observations Per Segment",
+            "expression": "AVERAGE(analytical_training_summary[ObservationCount])",
+            "formatString": "#,##0",
+            "displayFolder": "Training",
+            "description": "Average number of historical observations backing each segment estimate."
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Table.FromRows({}, {\"Placeholder\"})",
+                "in",
+                "    Source"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "fact_opportunities_ServiceLineKey_to_dim_service_line_ServiceLineKey",
+        "fromTable": "fact_opportunities",
+        "fromColumn": "ServiceLineKey",
+        "toTable": "dim_service_line",
+        "toColumn": "ServiceLineKey",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "fact_opportunities_ClientTypeKey_to_dim_client_type_ClientTypeKey",
+        "fromTable": "fact_opportunities",
+        "fromColumn": "ClientTypeKey",
+        "toTable": "dim_client_type",
+        "toColumn": "ClientTypeKey",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "fact_opportunities_IndustryKey_to_dim_industry_IndustryKey",
+        "fromTable": "fact_opportunities",
+        "fromColumn": "IndustryKey",
+        "toTable": "dim_industry",
+        "toColumn": "IndustryKey",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "fact_opportunities_NewVsExistingKey_to_dim_new_vs_existing_NewVsExistingKey",
+        "fromTable": "fact_opportunities",
+        "fromColumn": "NewVsExistingKey",
+        "toTable": "dim_new_vs_existing",
+        "toColumn": "NewVsExistingKey",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "fact_opportunities_LeadSourceKey_to_dim_lead_source_LeadSourceKey",
+        "fromTable": "fact_opportunities",
+        "fromColumn": "LeadSourceKey",
+        "toTable": "dim_lead_source",
+        "toColumn": "LeadSourceKey",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "fact_opportunities_StatusKey_to_dim_status_StatusKey",
+        "fromTable": "fact_opportunities",
+        "fromColumn": "StatusKey",
+        "toTable": "dim_status",
+        "toColumn": "StatusKey",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "analytical_job_results_OpportunityID_to_fact_opportunities_OpportunityID",
+        "fromTable": "analytical_job_results",
+        "fromColumn": "OpportunityID",
+        "toTable": "fact_opportunities",
+        "toColumn": "OpportunityID",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "analytical_test_results_OpportunityID_to_fact_opportunities_OpportunityID",
+        "fromTable": "analytical_test_results",
+        "fromColumn": "OpportunityID",
+        "toTable": "fact_opportunities",
+        "toColumn": "OpportunityID",
+        "crossFilteringBehavior": "oneDirection"
+      }
+    ],
+    "cultures": [
+      {
+        "name": "en-US",
+        "linguisticMetadata": {
+          "content": {
+            "Version": "1.0.0",
+            "Language": "en-US"
+          },
+          "contentType": "json"
+        }
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"dim_service_line\", \"dim_client_type\", \"dim_industry\", \"dim_new_vs_existing\", \"dim_lead_source\", \"dim_status\", \"fact_opportunities\", \"analytical_training_summary\", \"analytical_job_results\", \"analytical_test_results\", \"analytical_pipeline_results\", \"log_build_runs\", \"_Measures\"]"
+      }
+    ]
+  }
+}
