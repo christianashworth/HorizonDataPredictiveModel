@@ -24,7 +24,7 @@
         },
         "options": {},
         "credential": {
-          "AuthenticationKind": "Windows",
+          "AuthenticationKind": "ServiceAccount",
           "kind": "SQL",
           "path": "localhost\\SQLEXPRESS;PipelineAnalytics",
           "EncryptConnection": false
