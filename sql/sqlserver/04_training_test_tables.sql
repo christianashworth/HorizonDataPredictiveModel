@@ -387,16 +387,22 @@ BEGIN
             jr.EstimatedWinPct,
             CASE WHEN fo.SoldDate IS NOT NULL THEN 1.0 ELSE 0.0 END
         ),
-        -- NetFees: actual available once sold
+        -- NetFees: use segment estimate as predicted (not COALESCE value),
+        -- actual = fo.NetFees. This ensures we compare the model estimate
+        -- against reality, not the actual value against itself.
         (
             'NetFees',
-            jr.EstimatedNetFees,
+            (SELECT s.OutcomeEstimate FROM dbo.analytical_segments s
+             WHERE s.SegmentKey = jr.SegmentKey AND s.OutcomeName = 'NetFees'
+             AND s.BuildRunKey = jr.BuildRunKey),
             CAST(fo.NetFees AS DECIMAL(18,6))
         ),
-        -- MarginPct: actual available only at 100% complete
+        -- MarginPct: use segment estimate as predicted
         (
             'MarginPct',
-            jr.EstimatedMarginPct,
+            (SELECT s.OutcomeEstimate FROM dbo.analytical_segments s
+             WHERE s.SegmentKey = jr.SegmentKey AND s.OutcomeName = 'MarginPct'
+             AND s.BuildRunKey = jr.BuildRunKey),
             CAST(fo.MarginPct AS DECIMAL(18,6))
         ),
         -- DaysSellToStart: actual available where job has started
