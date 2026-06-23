@@ -1160,6 +1160,516 @@
                   "Value": "Hidden"
                 }
               },
+              "analytical_job_result.pipeline_estimated_fees": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "analytical_job_results",
+                    "ConceptualProperty": "Pipeline Estimated Fees"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "pipeline estimated fees": {
+                      "State": "Generated"
+                    }
+                  },
+                  {
+                    "pipeline estimated subscription": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.508
+                    }
+                  },
+                  {
+                    "pipeline estimated payment": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.508
+                    }
+                  },
+                  {
+                    "pipeline estimated due": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "pipeline estimated charge": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "pipeline estimated levy": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "pipeline estimated toll": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "pipeline estimated debt": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.482
+                    }
+                  },
+                  {
+                    "pipeline estimated cost": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.468
+                    }
+                  },
+                  {
+                    "pipeline estimated bill": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.468
+                    }
+                  },
+                  {
+                    "pipeline estimated amount": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.468
+                    }
+                  },
+                  {
+                    "Total Estimated Fees": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
+                  }
+                ]
+              },
+              "analytical_job_result.pipeline_estimated_margin": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "analytical_job_results",
+                    "ConceptualProperty": "Pipeline Estimated Margin"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "pipeline estimated margin": {
+                      "State": "Generated"
+                    }
+                  },
+                  {
+                    "pipeline estimated boundary": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.508
+                    }
+                  },
+                  {
+                    "pipeline estimated perimeter": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.508
+                    }
+                  },
+                  {
+                    "pipeline estimated periphery": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.508
+                    }
+                  },
+                  {
+                    "pipeline estimated border": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "pipeline estimated brim": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "pipeline estimated sideline": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "pipeline estimated edge": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "pipeline estimated verge": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "pipeline estimated fringe": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "pipeline estimated side": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "Total Estimated Margin": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
+                  }
+                ]
+              },
+              "analytical_job_result.pipeline_jobs": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "analytical_job_results",
+                    "ConceptualProperty": "Pipeline Jobs"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "pipeline jobs": {
+                      "State": "Generated"
+                    }
+                  },
+                  {
+                    "jobs": {
+                      "State": "Generated",
+                      "Weight": 0.97
+                    }
+                  },
+                  {
+                    "pipeline occupation": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.5
+                    }
+                  },
+                  {
+                    "pipeline profession": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.5
+                    }
+                  },
+                  {
+                    "occupation": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
+                    }
+                  },
+                  {
+                    "profession": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.491
+                    }
+                  },
+                  {
+                    "pipeline works": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.485
+                    }
+                  },
+                  {
+                    "pipeline trade": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.485
+                    }
+                  },
+                  {
+                    "pipeline career": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.485
+                    }
+                  },
+                  {
+                    "pipeline employment": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.485
+                    }
+                  },
+                  {
+                    "pipeline contract": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.485
+                    }
+                  },
+                  {
+                    "pipeline business": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.485
+                    }
+                  },
+                  {
+                    "Total Pipeline Jobs": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
+                  }
+                ]
+              },
+              "analytical_job_result.prob_weighted_fees": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "analytical_job_results",
+                    "ConceptualProperty": "Prob Weighted Fees"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "prob weighted fees": {
+                      "State": "Generated"
+                    }
+                  },
+                  {
+                    "prob weighted subscription": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.508
+                    }
+                  },
+                  {
+                    "prob weighted payment": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.508
+                    }
+                  },
+                  {
+                    "prob weighted due": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "prob weighted charge": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "prob weighted levy": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "prob weighted toll": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "prob weighted debt": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.482
+                    }
+                  },
+                  {
+                    "prob weighted cost": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.468
+                    }
+                  },
+                  {
+                    "prob weighted bill": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.468
+                    }
+                  },
+                  {
+                    "prob weighted amount": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.468
+                    }
+                  },
+                  {
+                    "Expected Value (Open Opps)": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
+                  }
+                ]
+              },
               "analytical_job_result.segment_key": {
                 "Definition": {
                   "Binding": {
@@ -2148,6 +2658,414 @@
                 "Visibility": {
                   "Value": "Hidden"
                 }
+              },
+              "analytical_pipeline_result.total_pipeline_fees": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "analytical_pipeline_results",
+                    "ConceptualProperty": "Total Pipeline Fees"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "total pipeline fees": {
+                      "State": "Generated"
+                    }
+                  },
+                  {
+                    "fees": {
+                      "State": "Generated",
+                      "Weight": 0.97
+                    }
+                  },
+                  {
+                    "pipeline fees": {
+                      "State": "Generated",
+                      "Weight": 0.97
+                    }
+                  },
+                  {
+                    "aggregate pipeline fee": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.591
+                    }
+                  },
+                  {
+                    "overall pipeline fee": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.591
+                    }
+                  },
+                  {
+                    "total pipeline subscription": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.508
+                    }
+                  },
+                  {
+                    "total pipeline payment": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.508
+                    }
+                  },
+                  {
+                    "pipeline subscription": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.5
+                    }
+                  },
+                  {
+                    "pipeline payment": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.5
+                    }
+                  },
+                  {
+                    "total pipeline due": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "total pipeline charge": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "total pipeline levy": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "total pipeline toll": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "Total Estimated Fees": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
+                  }
+                ]
+              },
+              "analytical_pipeline_result.total_pipeline_jobs": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "analytical_pipeline_results",
+                    "ConceptualProperty": "Total Pipeline Jobs"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "total pipeline jobs": {
+                      "State": "Generated"
+                    }
+                  },
+                  {
+                    "jobs": {
+                      "State": "Generated",
+                      "Weight": 0.97
+                    }
+                  },
+                  {
+                    "aggregate pipeline job": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.591
+                    }
+                  },
+                  {
+                    "overall pipeline job": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.591
+                    }
+                  },
+                  {
+                    "total pipeline occupation": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.508
+                    }
+                  },
+                  {
+                    "total pipeline profession": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.508
+                    }
+                  },
+                  {
+                    "total pipeline works": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "total pipeline trade": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "total pipeline career": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "total pipeline employment": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "total pipeline contract": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "total pipeline business": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "Total Pipeline Starting": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
+                  }
+                ]
+              },
+              "analytical_pipeline_result.total_pipeline_margin": {
+                "Definition": {
+                  "Binding": {
+                    "ConceptualEntity": "analytical_pipeline_results",
+                    "ConceptualProperty": "Total Pipeline Margin"
+                  }
+                },
+                "State": "Generated",
+                "Terms": [
+                  {
+                    "total pipeline margin": {
+                      "State": "Generated"
+                    }
+                  },
+                  {
+                    "margin": {
+                      "State": "Generated",
+                      "Weight": 0.97
+                    }
+                  },
+                  {
+                    "pipeline margin": {
+                      "State": "Generated",
+                      "Weight": 0.97
+                    }
+                  },
+                  {
+                    "aggregate pipeline margin": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.591
+                    }
+                  },
+                  {
+                    "overall pipeline margin": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.591
+                    }
+                  },
+                  {
+                    "total pipeline boundary": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.508
+                    }
+                  },
+                  {
+                    "total pipeline perimeter": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.508
+                    }
+                  },
+                  {
+                    "total pipeline periphery": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.508
+                    }
+                  },
+                  {
+                    "pipeline boundary": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.5
+                    }
+                  },
+                  {
+                    "pipeline perimeter": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.5
+                    }
+                  },
+                  {
+                    "pipeline periphery": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.5
+                    }
+                  },
+                  {
+                    "total pipeline border": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "total pipeline brim": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "Total Estimated Margin": {
+                      "Source": {
+                        "Agent": "PowerBI.VisualColumnRename",
+                        "Type": "External"
+                      },
+                      "State": "Suggested",
+                      "Weight": 0.9
+                    }
+                  }
+                ]
               },
               "analytical_test_result": {
                 "Definition": {
@@ -10501,12 +11419,6 @@
                     }
                   },
                   {
-                    "pipeline jobs": {
-                      "State": "Generated",
-                      "Weight": 0.97
-                    }
-                  },
-                  {
                     "latest pipeline job": {
                       "Source": {
                         "Agent": "Thesaurus"
@@ -10557,26 +11469,6 @@
                     }
                   },
                   {
-                    "pipeline occupation": {
-                      "Source": {
-                        "Agent": "Thesaurus"
-                      },
-                      "State": "Suggested",
-                      "Type": "Noun",
-                      "Weight": 0.5
-                    }
-                  },
-                  {
-                    "pipeline profession": {
-                      "Source": {
-                        "Agent": "Thesaurus"
-                      },
-                      "State": "Suggested",
-                      "Type": "Noun",
-                      "Weight": 0.5
-                    }
-                  },
-                  {
                     "current pipeline works": {
                       "Source": {
                         "Agent": "Thesaurus"
@@ -10598,6 +11490,26 @@
                   },
                   {
                     "current pipeline career": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "current pipeline employment": {
+                      "Source": {
+                        "Agent": "Thesaurus"
+                      },
+                      "State": "Suggested",
+                      "Type": "Noun",
+                      "Weight": 0.492
+                    }
+                  },
+                  {
+                    "current pipeline contract": {
                       "Source": {
                         "Agent": "Thesaurus"
                       },
@@ -15887,6 +16799,138 @@
                 },
                 "State": "Generated"
               },
+              "analytical_job_result_has_pipeline_estimated_fees": {
+                "Binding": {
+                  "ConceptualEntity": "analytical_job_results"
+                },
+                "Phrasings": [
+                  {
+                    "Attribute": {
+                      "Object": {
+                        "Role": "analytical_job_result.pipeline_estimated_fees"
+                      },
+                      "Subject": {
+                        "Role": "analytical_job_result"
+                      }
+                    },
+                    "ID": "analytical_job_results_have_pipeline_estimated_fees",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  }
+                ],
+                "Roles": {
+                  "analytical_job_result": {
+                    "Target": {
+                      "Entity": "analytical_job_result"
+                    }
+                  },
+                  "analytical_job_result.pipeline_estimated_fees": {
+                    "Target": {
+                      "Entity": "analytical_job_result.pipeline_estimated_fees"
+                    }
+                  }
+                },
+                "State": "Generated"
+              },
+              "analytical_job_result_has_pipeline_estimated_margin": {
+                "Binding": {
+                  "ConceptualEntity": "analytical_job_results"
+                },
+                "Phrasings": [
+                  {
+                    "Attribute": {
+                      "Object": {
+                        "Role": "analytical_job_result.pipeline_estimated_margin"
+                      },
+                      "Subject": {
+                        "Role": "analytical_job_result"
+                      }
+                    },
+                    "ID": "analytical_job_results_have_pipeline_estimated_margin",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  }
+                ],
+                "Roles": {
+                  "analytical_job_result": {
+                    "Target": {
+                      "Entity": "analytical_job_result"
+                    }
+                  },
+                  "analytical_job_result.pipeline_estimated_margin": {
+                    "Target": {
+                      "Entity": "analytical_job_result.pipeline_estimated_margin"
+                    }
+                  }
+                },
+                "State": "Generated"
+              },
+              "analytical_job_result_has_pipeline_jobs": {
+                "Binding": {
+                  "ConceptualEntity": "analytical_job_results"
+                },
+                "Phrasings": [
+                  {
+                    "Attribute": {
+                      "Object": {
+                        "Role": "analytical_job_result.pipeline_jobs"
+                      },
+                      "Subject": {
+                        "Role": "analytical_job_result"
+                      }
+                    },
+                    "ID": "analytical_job_results_have_pipeline_jobs",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  }
+                ],
+                "Roles": {
+                  "analytical_job_result": {
+                    "Target": {
+                      "Entity": "analytical_job_result"
+                    }
+                  },
+                  "analytical_job_result.pipeline_jobs": {
+                    "Target": {
+                      "Entity": "analytical_job_result.pipeline_jobs"
+                    }
+                  }
+                },
+                "State": "Generated"
+              },
+              "analytical_job_result_has_prob_weighted_fees": {
+                "Binding": {
+                  "ConceptualEntity": "analytical_job_results"
+                },
+                "Phrasings": [
+                  {
+                    "Attribute": {
+                      "Object": {
+                        "Role": "analytical_job_result.prob_weighted_fees"
+                      },
+                      "Subject": {
+                        "Role": "analytical_job_result"
+                      }
+                    },
+                    "ID": "analytical_job_results_have_prob_weighted_fees",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  }
+                ],
+                "Roles": {
+                  "analytical_job_result": {
+                    "Target": {
+                      "Entity": "analytical_job_result"
+                    }
+                  },
+                  "analytical_job_result.prob_weighted_fees": {
+                    "Target": {
+                      "Entity": "analytical_job_result.prob_weighted_fees"
+                    }
+                  }
+                },
+                "State": "Generated"
+              },
               "analytical_job_result_is_estimated_on_estimated_pct_100_date": {
                 "Binding": {
                   "ConceptualEntity": "analytical_job_results"
@@ -16439,6 +17483,105 @@
                   "analytical_pipeline_result.period_month": {
                     "Target": {
                       "Entity": "analytical_pipeline_result.period_month"
+                    }
+                  }
+                },
+                "State": "Generated"
+              },
+              "analytical_pipeline_result_has_total_pipeline_fees": {
+                "Binding": {
+                  "ConceptualEntity": "analytical_pipeline_results"
+                },
+                "Phrasings": [
+                  {
+                    "Attribute": {
+                      "Object": {
+                        "Role": "analytical_pipeline_result.total_pipeline_fees"
+                      },
+                      "Subject": {
+                        "Role": "analytical_pipeline_result"
+                      }
+                    },
+                    "ID": "analytical_pipeline_results_have_total_pipeline_fees",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  }
+                ],
+                "Roles": {
+                  "analytical_pipeline_result": {
+                    "Target": {
+                      "Entity": "analytical_pipeline_result"
+                    }
+                  },
+                  "analytical_pipeline_result.total_pipeline_fees": {
+                    "Target": {
+                      "Entity": "analytical_pipeline_result.total_pipeline_fees"
+                    }
+                  }
+                },
+                "State": "Generated"
+              },
+              "analytical_pipeline_result_has_total_pipeline_jobs": {
+                "Binding": {
+                  "ConceptualEntity": "analytical_pipeline_results"
+                },
+                "Phrasings": [
+                  {
+                    "Attribute": {
+                      "Object": {
+                        "Role": "analytical_pipeline_result.total_pipeline_jobs"
+                      },
+                      "Subject": {
+                        "Role": "analytical_pipeline_result"
+                      }
+                    },
+                    "ID": "analytical_pipeline_results_have_total_pipeline_jobs",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  }
+                ],
+                "Roles": {
+                  "analytical_pipeline_result": {
+                    "Target": {
+                      "Entity": "analytical_pipeline_result"
+                    }
+                  },
+                  "analytical_pipeline_result.total_pipeline_jobs": {
+                    "Target": {
+                      "Entity": "analytical_pipeline_result.total_pipeline_jobs"
+                    }
+                  }
+                },
+                "State": "Generated"
+              },
+              "analytical_pipeline_result_has_total_pipeline_margin": {
+                "Binding": {
+                  "ConceptualEntity": "analytical_pipeline_results"
+                },
+                "Phrasings": [
+                  {
+                    "Attribute": {
+                      "Object": {
+                        "Role": "analytical_pipeline_result.total_pipeline_margin"
+                      },
+                      "Subject": {
+                        "Role": "analytical_pipeline_result"
+                      }
+                    },
+                    "ID": "analytical_pipeline_results_have_total_pipeline_margin",
+                    "State": "Generated",
+                    "Weight": 0.99
+                  }
+                ],
+                "Roles": {
+                  "analytical_pipeline_result": {
+                    "Target": {
+                      "Entity": "analytical_pipeline_result"
+                    }
+                  },
+                  "analytical_pipeline_result.total_pipeline_margin": {
+                    "Target": {
+                      "Entity": "analytical_pipeline_result.total_pipeline_margin"
                     }
                   }
                 },
@@ -21161,6 +22304,47 @@
           }
         ],
         "lineageTag": "89576908-40ab-43ae-86ac-7b5c88deb58c",
+        "measures": [
+          {
+            "name": "Prob Weighted Fees",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "CALCULATE(SUMX(analytical_job_results, analytical_job_results[EstimatedWinPct] * analytical_job_results[EstimatedNetFees]), analytical_job_results[DatasetType] = \"Current\")",
+            "lineageTag": "0bffd53d-c4e0-4308-817a-89926dcae697"
+          },
+          {
+            "name": "Pipeline Jobs",
+            "expression": "COUNTROWS(analytical_job_results)",
+            "formatString": "0",
+            "lineageTag": "abd4d6af-4739-4cc4-8527-78e9930dbeeb"
+          },
+          {
+            "name": "Pipeline Estimated Fees",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "CALCULATE(SUM(analytical_job_results[EstimatedNetFees]), analytical_job_results[DatasetType] = \"Current\")",
+            "lineageTag": "1e9ae3df-c7b4-45cb-8a94-a3a1edc38adb"
+          },
+          {
+            "name": "Pipeline Estimated Margin",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "CALCULATE(SUM(analytical_job_results[EstimatedMarginDollars]), analytical_job_results[DatasetType] = \"Current\")",
+            "lineageTag": "46cb6601-ee55-44e2-8d5e-b273fbae81be"
+          }
+        ],
         "partitions": [
           {
             "name": "Partition",
@@ -21543,6 +22727,36 @@
           }
         ],
         "lineageTag": "d42a9dc2-4d56-4a7e-ae77-18d5de5cfff0",
+        "measures": [
+          {
+            "name": "Total Pipeline Jobs",
+            "expression": "SUM(analytical_pipeline_results[EstimatedJobCount])",
+            "formatString": "0",
+            "lineageTag": "ef100114-0f65-4028-9e71-c48626234561"
+          },
+          {
+            "name": "Total Pipeline Fees",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "SUM(analytical_pipeline_results[EstimatedNetFees])",
+            "lineageTag": "b8629404-e5fb-42be-9a56-a09150fc2940"
+          },
+          {
+            "name": "Total Pipeline Margin",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "SUM(analytical_pipeline_results[EstimatedMarginDollars])",
+            "lineageTag": "a9ae8532-fc96-489c-828b-5d6e70bc188d"
+          }
+        ],
         "partitions": [
           {
             "name": "Partition",
