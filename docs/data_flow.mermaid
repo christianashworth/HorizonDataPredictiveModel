@@ -1,0 +1,141 @@
+---
+title: Horizon Data Predictive Model — Data Flow
+---
+flowchart TD
+    %% ── Input ──────────────────────────────────────────────
+    A(["`**raw_data_sample.xlsx**
+    3,500 opportunities & jobs
+    14 fields per record`"])
+
+    %% ── SQL Server ─────────────────────────────────────────
+    subgraph SQL ["SQL Server — PipelineAnalytics"]
+        direction TB
+
+        B["**stg_raw_data**
+        Staging table
+        Mirrors Excel structure"]
+
+        C["**usp_LoadRawData**
+        Maps categories to dimension keys
+        Derives Status, ResolutionDate,
+        MarginDollars, timing metrics"]
+
+        subgraph DIMS ["Dimension Tables"]
+            D1[dim_service_line]
+            D2[dim_client_type]
+            D3[dim_industry]
+            D4[dim_new_vs_existing]
+            D5[dim_lead_source]
+            D6[dim_status]
+        end
+
+        E["**fact_opportunities**
+        One row per opportunity/job
+        All dates, financials, derived metrics"]
+
+        F["**usp_BuildSegments**
+        Filters training window
+        Computes mean outcomes at
+        6 granularity levels × 6 outcomes
+        Category cascade: Cat5→Cat4→Cat3→Cat2→Cat1"]
+
+        G["**analytical_segments**
+        4,749 segment-outcome combinations
+        ObservationCount + drop flags"]
+
+        H["**usp_BuildTrainingSummary**
+        Joins dimension names
+        Builds SegmentLabel + DroppedCategoriesLabel"]
+
+        I["**analytical_training_summary**
+        Human-readable segment cells
+        For Power BI Training Analysis page"]
+
+        J["**usp_ApplyModel**
+        Matches records to finest
+        qualifying segment ≥ min threshold
+        Converts days → estimated dates"]
+
+        K["**analytical_job_results**
+        1,868 job-level predictions
+        EstimatedWinPct, Fees, Margin, Dates
+        Tagged Current or Test"]
+
+        L["**usp_BuildTestResults**
+        Predicted vs actual comparison
+        Error, AbsoluteError,
+        SquaredError, PercentageError"]
+
+        M["**analytical_test_results**
+        803 test-window records
+        One row per record per outcome"]
+
+        N["**usp_BuildPipelineAggregations**
+        Groups by EstimatedStartDate month
+        Sums fees/margin, median milestone dates"]
+
+        O["**analytical_pipeline_results**
+        22 monthly period rows
+        Pipeline totals + median dates"]
+
+        P["**log_build_runs**
+        Full audit log of every
+        Build script execution"]
+    end
+
+    %% ── Power BI ────────────────────────────────────────────
+    subgraph PBI ["Power BI Desktop — PipelineAnalytics.pbip"]
+        direction TB
+        Q["**1. Training Analysis**
+        Segment cells, estimates,
+        observation counts, drop indicators"]
+
+        R["**2. Model Performance**
+        Predicted vs actual, RMSE/MAE,
+        scatter chart, win % calibration"]
+
+        S["**3. Job Predictions**
+        Job-level estimates with dates,
+        win probability, pipeline value"]
+
+        T["**4. Pipeline Summary**
+        Monthly aggregations,
+        fee/margin trends, milestone dates"]
+    end
+
+    %% ── Orchestrator ────────────────────────────────────────
+    U["**usp_RunBuild**
+    Master orchestrator
+    Calls all procedures in sequence
+    Logs to log_build_runs"]
+
+    %% ── Connections ─────────────────────────────────────────
+    A -->|"BULK INSERT / manual load"| B
+    B --> C
+    DIMS --> C
+    C --> E
+    E -->|"Training window\n7–24 months ago"| F
+    F --> G
+    G --> H
+    H --> I
+    E -->|"Current + Test records"| J
+    G -->|"Segment estimates"| J
+    J --> K
+    K --> L
+    E --> L
+    L --> M
+    K --> N
+    N --> O
+    U -.->|"orchestrates"| C
+    U -.->|"orchestrates"| F
+    U -.->|"orchestrates"| J
+    U -.->|"orchestrates"| H
+    U -.->|"orchestrates"| L
+    U -.->|"orchestrates"| N
+    U --> P
+
+    I -->|"Direct Query / Import"| Q
+    M -->|"Direct Query / Import"| R
+    K -->|"Direct Query / Import"| S
+    O -->|"Direct Query / Import"| T
+    E -->|"Direct Query / Import"| S
