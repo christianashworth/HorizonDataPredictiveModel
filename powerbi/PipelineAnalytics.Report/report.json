@@ -1,36 +1,164 @@
 {
-  "id": "efc54554-c62a-4684-ad8d-a6a76c513981",
-  "resourcePackages": [],
+  "config": "{\"version\":\"5.68\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU06\",\"type\":2,\"version\":{\"visual\":\"1.8.79\",\"report\":\"2.0.79\",\"page\":\"1.3.79\"}}},\"activeSectionIndex\":1,\"linguisticSchemaSyncVersion\":2}",
+  "layoutOptimization": 0,
   "sections": [
     {
-      "name": "ReportSection1",
+      "config": "{}",
       "displayName": "1. Training Analysis",
-      "width": 1280,
-      "height": 720,
-      "visualContainers": []
+      "displayOption": 0,
+      "height": 720.00,
+      "name": "ReportSection1",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"020a4a0cd080a0aa02a5\",\"layouts\":[{\"id\":0,\"position\":{\"x\":848.6049543676662,\"y\":0,\"z\":6000,\"width\":208.60495436766624,\"height\":195.37297297297295,\"tabOrder\":6000}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"analytical_training_summary.Avg Obs Per Segment\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"analytical_training_summary\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Avg Obs Per Segment\"},\"Name\":\"analytical_training_summary.Avg Obs Per Segment\",\"NativeReferenceName\":\"Avg Obs Per Segment\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Avg Obs Per Segment\"}}}]},\"hasDefaultSort\":true,\"objects\":{\"value\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}},\"selector\":{\"id\":\"default\"}}],\"label\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}},\"selector\":{\"id\":\"default\"}}]}}}",
+          "filters": "[]",
+          "height": 195.37,
+          "width": 208.60,
+          "x": 848.60,
+          "y": 0.00,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"0884c09bd20261d10d75\",\"layouts\":[{\"id\":0,\"position\":{\"x\":431.39504563233373,\"y\":0,\"z\":5000,\"width\":208.60495436766624,\"height\":195.37297297297295,\"tabOrder\":5000}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"Sum(analytical_training_summary.ObservationCount)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"analytical_training_summary\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"ObservationCount\"}},\"Function\":0},\"Name\":\"Sum(analytical_training_summary.ObservationCount)\",\"NativeReferenceName\":\"Total Observations\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"ObservationCount\"}},\"Function\":0}}}]},\"columnProperties\":{\"Sum(analytical_training_summary.ObservationCount)\":{\"displayName\":\"Total Observations\"}},\"hasDefaultSort\":true,\"objects\":{\"value\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}},\"selector\":{\"id\":\"default\"}}],\"label\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}},\"selector\":{\"id\":\"default\"}}]}}}",
+          "filters": "[]",
+          "height": 195.37,
+          "width": 208.60,
+          "x": 431.40,
+          "y": 0.00,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"449ba8ad7a607b0cb5a7\",\"layouts\":[{\"id\":0,\"position\":{\"x\":251.16036505867012,\"y\":45.924324324324324,\"z\":3000,\"width\":180.2346805736636,\"height\":149.44864864864863,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"analytical_training_summary.ServiceLineName\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"analytical_training_summary\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"ServiceLineName\"},\"Name\":\"analytical_training_summary.ServiceLineName\",\"NativeReferenceName\":\"ServiceLineName\"}]},\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{\"orientation\":{\"expr\":{\"Literal\":{\"Value\":\"1D\"}}},\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"analytical_training_summary\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"ServiceLineName\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Advisory'\"}}]]}}}]}}}}],\"items\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"header\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Service Line'\"}}},\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Service Line'\"}}},\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 149.45,
+          "width": 180.23,
+          "x": 251.16,
+          "y": 45.92,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"5cbae3971106560965c9\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1057.2099087353324,\"y\":0,\"z\":7000,\"width\":208.60495436766624,\"height\":195.37297297297295,\"tabOrder\":7000}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"analytical_training_summary.Segs With Drops\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"analytical_training_summary\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Segs With Drops\"},\"Name\":\"analytical_training_summary.Segs With Drops\",\"NativeReferenceName\":\"Segments With Drops\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Segs With Drops\"}}}]},\"columnProperties\":{\"analytical_training_summary.Segs With Drops\":{\"displayName\":\"Segments With Drops\"}},\"hasDefaultSort\":true,\"objects\":{\"value\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}},\"selector\":{\"id\":\"default\"}}],\"label\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"12D\"}}}},\"selector\":{\"id\":\"default\"}}]}}}",
+          "filters": "[]",
+          "height": 195.37,
+          "width": 208.60,
+          "x": 1057.21,
+          "y": 0.00,
+          "z": 7000.00
+        },
+        {
+          "config": "{\"name\":\"7ba654c0c8a8750b367e\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":45.924324324324324,\"z\":2000,\"width\":251.16036505867012,\"height\":149.44864864864863,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"analytical_training_summary.OutcomeName\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"analytical_training_summary\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"OutcomeName\"},\"Name\":\"analytical_training_summary.OutcomeName\",\"NativeReferenceName\":\"OutcomeName\"}]},\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{\"orientation\":{\"expr\":{\"Literal\":{\"Value\":\"1D\"}}},\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"analytical_training_summary\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"OutcomeName\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'DaysSellToStart'\"}}]]}}}]}}}}],\"items\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"header\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Outcome Type'\"}}},\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Outcome Type'\"}}},\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 149.45,
+          "width": 251.16,
+          "x": 0.00,
+          "y": 45.92,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"96adacf2b3dee6c20180\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":0,\"z\":0,\"width\":280.3650586701434,\"height\":28.02162162162162,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"textbox\",\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Training Analysis\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"14pt\"}}]}]}}]}}}",
+          "filters": "[]",
+          "height": 28.02,
+          "width": 280.37,
+          "x": 0.00,
+          "y": 0.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"c51672d16d32da18979a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":640,\"y\":0,\"z\":4000,\"width\":208.60495436766624,\"height\":195.37297297297295,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"analytical_training_summary.Seg Count\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"analytical_training_summary\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Seg Count\"},\"Name\":\"analytical_training_summary.Seg Count\",\"NativeReferenceName\":\"Unique Segments\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Seg Count\"}}}]},\"columnProperties\":{\"analytical_training_summary.Seg Count\":{\"displayName\":\"Unique Segments\"}},\"hasDefaultSort\":true,\"objects\":{\"value\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}},\"selector\":{\"id\":\"default\"}}],\"label\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}},\"selector\":{\"id\":\"default\"}}]}}}",
+          "filters": "[]",
+          "height": 195.37,
+          "width": 208.60,
+          "x": 640.00,
+          "y": 0.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"c751a0e9b05e721b0780\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":214.83243243243243,\"z\":1000,\"width\":1280,\"height\":505.1675675675675,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"analytical_training_summary.SegmentLabel\"},{\"queryRef\":\"analytical_training_summary.OutcomeName\"},{\"queryRef\":\"Sum(analytical_training_summary.OutcomeEstimate)\"},{\"queryRef\":\"Sum(analytical_training_summary.ObservationCount)\"},{\"queryRef\":\"analytical_training_summary.GranularityLevel\"},{\"queryRef\":\"analytical_training_summary.DroppedCategoriesLabel\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"analytical_training_summary\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"SegmentLabel\"},\"Name\":\"analytical_training_summary.SegmentLabel\",\"NativeReferenceName\":\"SegmentName\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"OutcomeName\"},\"Name\":\"analytical_training_summary.OutcomeName\",\"NativeReferenceName\":\"OutcomeName\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"OutcomeEstimate\"}},\"Function\":0},\"Name\":\"Sum(analytical_training_summary.OutcomeEstimate)\",\"NativeReferenceName\":\"OutcomeEstimate\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"ObservationCount\"}},\"Function\":0},\"Name\":\"Sum(analytical_training_summary.ObservationCount)\",\"NativeReferenceName\":\"ObservationCount\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"GranularityLevel\"},\"Name\":\"analytical_training_summary.GranularityLevel\",\"NativeReferenceName\":\"GranularityLevel\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"DroppedCategoriesLabel\"},\"Name\":\"analytical_training_summary.DroppedCategoriesLabel\",\"NativeReferenceName\":\"DroppedCategories\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"SegmentLabel\"}}}]},\"columnProperties\":{\"analytical_training_summary.SegmentLabel\":{\"displayName\":\"SegmentName\"},\"analytical_training_summary.DroppedCategoriesLabel\":{\"displayName\":\"DroppedCategories\"}},\"objects\":{\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"555D\"}}}},\"selector\":{\"metadata\":\"analytical_training_summary.SegmentLabel\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"151D\"}}}},\"selector\":{\"metadata\":\"analytical_training_summary.OutcomeName\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"146D\"}}}},\"selector\":{\"metadata\":\"Sum(analytical_training_summary.OutcomeEstimate)\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"141D\"}}}},\"selector\":{\"metadata\":\"Sum(analytical_training_summary.ObservationCount)\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"124D\"}}}},\"selector\":{\"metadata\":\"analytical_training_summary.GranularityLevel\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"396D\"}}}},\"selector\":{\"metadata\":\"analytical_training_summary.DroppedCategoriesLabel\"}}],\"columnHeaders\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"11D\"}}},\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#ABE0F0'\"}}}}}}}]}}}",
+          "filters": "[]",
+          "height": 505.17,
+          "width": 1280.00,
+          "x": 0.00,
+          "y": 214.83,
+          "z": 1000.00
+        }
+      ],
+      "width": 1280.00
     },
     {
-      "name": "ReportSection2",
+      "config": "{}",
       "displayName": "2. Model Performance",
-      "width": 1280,
-      "height": 720,
-      "visualContainers": []
+      "displayOption": 0,
+      "height": 720.00,
+      "name": "ReportSection2",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"2dfdc316ae1250cc4a7c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":46.7027027027027,\"z\":0,\"width\":150.1955671447197,\"height\":148.67027027027027,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"analytical_test_results.OutcomeName\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"analytical_test_results\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"OutcomeName\"},\"Name\":\"analytical_test_results.OutcomeName\",\"NativeReferenceName\":\"OutcomeName\"}]},\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{\"orientation\":{\"expr\":{\"Literal\":{\"Value\":\"1D\"}}}}}],\"items\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"header\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Outcome Name'\"}}},\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Outcome Name'\"}}},\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 148.67,
+          "width": 150.20,
+          "x": 0.00,
+          "y": 46.70,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"9e9796e02cde8d5a302e\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":217.16756756756754,\"z\":1002,\"width\":452.2555410691004,\"height\":502.83243243243237,\"tabOrder\":1002}}],\"singleVisual\":{\"visualType\":\"scatterChart\",\"projections\":{\"X\":[{\"queryRef\":\"Sum(analytical_test_results.PredictedValue)\",\"active\":true}],\"Y\":[{\"queryRef\":\"Sum(analytical_test_results.ActualValue)\"}],\"Category\":[{\"queryRef\":\"analytical_test_results.OpportunityID\",\"active\":true}],\"Series\":[{\"queryRef\":\"analytical_test_results.OutcomeName\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"analytical_test_results\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"PredictedValue\"}},\"Function\":0},\"Name\":\"Sum(analytical_test_results.PredictedValue)\",\"NativeReferenceName\":\"PredictedValue\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"ActualValue\"}},\"Function\":0},\"Name\":\"Sum(analytical_test_results.ActualValue)\",\"NativeReferenceName\":\"ActualValue\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"OpportunityID\"},\"Name\":\"analytical_test_results.OpportunityID\",\"NativeReferenceName\":\"OpportunityID\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"OutcomeName\"},\"Name\":\"analytical_test_results.OutcomeName\",\"NativeReferenceName\":\"OutcomeName\"}]},\"objects\":{\"categoryAxis\":[{\"properties\":{\"titleText\":{\"expr\":{\"Literal\":{\"Value\":\"'Predicted Value'\"}}},\"titleBold\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"valueAxis\":[{\"properties\":{\"titleText\":{\"expr\":{\"Literal\":{\"Value\":\"'Actual Value'\"}}},\"titleBold\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"bubbles\":[{\"properties\":{\"bubbleSize\":{\"expr\":{\"Literal\":{\"Value\":\"-22L\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Predicted vs Actual (Perfect Predictions Fall on the Diagonal)'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 502.83,
+          "width": 452.26,
+          "x": 0.00,
+          "y": 217.17,
+          "z": 1002.00
+        },
+        {
+          "config": "{\"name\":\"9f4a50a417b00954c3ec\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":0,\"z\":1000,\"width\":271.1864406779661,\"height\":27.243243243243242,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Model Performance - Test Dataset\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"14pt\"}}]}]}}]}}}",
+          "filters": "[]",
+          "height": 27.24,
+          "width": 271.19,
+          "x": 0.00,
+          "y": 0.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"a6f03aee4018d2c5abda\",\"layouts\":[{\"id\":0,\"position\":{\"x\":150.1955671447197,\"y\":46.7027027027027,\"z\":1001,\"width\":1121.4602346805736,\"height\":149.44864864864863,\"tabOrder\":1001}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"analytical_test_results.Test RMSE\"},{\"queryRef\":\"analytical_test_results.Test MAE\"},{\"queryRef\":\"analytical_test_results.Test Mean Error\"},{\"queryRef\":\"analytical_test_results.Test Expected Wins\"},{\"queryRef\":\"analytical_test_results.Test Actual Wins\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"analytical_test_results\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Test RMSE\"},\"Name\":\"analytical_test_results.Test RMSE\",\"NativeReferenceName\":\"RMSE\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Test MAE\"},\"Name\":\"analytical_test_results.Test MAE\",\"NativeReferenceName\":\"MAE\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Test Mean Error\"},\"Name\":\"analytical_test_results.Test Mean Error\",\"NativeReferenceName\":\"Mean Error\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Test Expected Wins\"},\"Name\":\"analytical_test_results.Test Expected Wins\",\"NativeReferenceName\":\"Expected Wins\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Test Actual Wins\"},\"Name\":\"analytical_test_results.Test Actual Wins\",\"NativeReferenceName\":\"Actual Wins\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Test RMSE\"}}}]},\"columnProperties\":{\"analytical_test_results.Test RMSE\":{\"displayName\":\"RMSE\"},\"analytical_test_results.Test MAE\":{\"displayName\":\"MAE\"},\"analytical_test_results.Test Mean Error\":{\"displayName\":\"Mean Error\"},\"analytical_test_results.Test Expected Wins\":{\"displayName\":\"Expected Wins\"},\"analytical_test_results.Test Actual Wins\":{\"displayName\":\"Actual Wins\"}},\"hasDefaultSort\":true,\"objects\":{\"value\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}},\"selector\":{\"id\":\"default\"}}],\"label\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}},\"selector\":{\"id\":\"default\"}}]}}}",
+          "filters": "[]",
+          "height": 149.45,
+          "width": 1121.46,
+          "x": 150.20,
+          "y": 46.70,
+          "z": 1001.00
+        },
+        {
+          "config": "{\"name\":\"f54bfe0c1dca19893331\",\"layouts\":[{\"id\":0,\"position\":{\"x\":452.2555410691004,\"y\":217.16756756756754,\"z\":1003,\"width\":827.7444589308996,\"height\":502.83243243243237,\"tabOrder\":1003}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"analytical_test_results.SegmentLabel\"},{\"queryRef\":\"analytical_test_results.OutcomeName\"},{\"queryRef\":\"Sum(analytical_test_results.PredictedValue)\"},{\"queryRef\":\"Sum(analytical_test_results.ActualValue)\"},{\"queryRef\":\"Sum(analytical_test_results.Error)\"},{\"queryRef\":\"Sum(analytical_test_results.AbsoluteError)\"},{\"queryRef\":\"Sum(analytical_test_results.SquaredError)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"analytical_test_results\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"SegmentLabel\"},\"Name\":\"analytical_test_results.SegmentLabel\",\"NativeReferenceName\":\"SegmentLabel\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"OutcomeName\"},\"Name\":\"analytical_test_results.OutcomeName\",\"NativeReferenceName\":\"OutcomeName\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"PredictedValue\"}},\"Function\":0},\"Name\":\"Sum(analytical_test_results.PredictedValue)\",\"NativeReferenceName\":\"PredictedValue\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"ActualValue\"}},\"Function\":0},\"Name\":\"Sum(analytical_test_results.ActualValue)\",\"NativeReferenceName\":\"ActualValue\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Error\"}},\"Function\":0},\"Name\":\"Sum(analytical_test_results.Error)\",\"NativeReferenceName\":\"Error\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"AbsoluteError\"}},\"Function\":0},\"Name\":\"Sum(analytical_test_results.AbsoluteError)\",\"NativeReferenceName\":\"AbsoluteError\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"SquaredError\"}},\"Function\":0},\"Name\":\"Sum(analytical_test_results.SquaredError)\",\"NativeReferenceName\":\"SquaredError\"}]},\"columnProperties\":{\"Sum(analytical_test_results.PredictedValue)\":{\"formatString\":\"0.00\"},\"Sum(analytical_test_results.ActualValue)\":{\"formatString\":\"0.00\"}},\"objects\":{\"columnHeaders\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"10D\"}}},\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#ABE0F0'\"}}}}}}}],\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"106D\"}}}},\"selector\":{\"metadata\":\"analytical_test_results.OutcomeName\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"91D\"}}}},\"selector\":{\"metadata\":\"Sum(analytical_test_results.ActualValue)\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"48D\"}}}},\"selector\":{\"metadata\":\"Sum(analytical_test_results.Error)\"}}]}}}",
+          "filters": "[]",
+          "height": 502.83,
+          "width": 827.74,
+          "x": 452.26,
+          "y": 217.17,
+          "z": 1003.00
+        }
+      ],
+      "width": 1280.00
     },
     {
-      "name": "ReportSection3",
+      "config": "{}",
       "displayName": "3. Job Predictions",
-      "width": 1280,
-      "height": 720,
-      "visualContainers": []
+      "displayOption": 0,
+      "height": 720.00,
+      "name": "ReportSection3",
+      "ordinal": 2,
+      "visualContainers": [],
+      "width": 1280.00
     },
     {
-      "name": "ReportSection4",
+      "config": "{}",
       "displayName": "4. Pipeline Summary",
-      "width": 1280,
-      "height": 720,
-      "visualContainers": []
+      "displayOption": 0,
+      "height": 720.00,
+      "name": "ReportSection4",
+      "ordinal": 3,
+      "visualContainers": [],
+      "width": 1280.00
     }
-  ],
-  "config": "{\"version\": \"5.43\", \"themeCollection\": {\"baseTheme\": {\"name\": \"CY24SU06\", \"version\": \"5.43\", \"type\": 2}}}",
-  "layoutOptimization": 0
+  ]
 }
