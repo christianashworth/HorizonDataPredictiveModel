@@ -387,22 +387,40 @@ BEGIN
             jr.EstimatedWinPct,
             CASE WHEN fo.SoldDate IS NOT NULL THEN 1.0 ELSE 0.0 END
         ),
-        -- NetFees: use segment estimate as predicted (not COALESCE value),
-        -- actual = fo.NetFees. This ensures we compare the model estimate
-        -- against reality, not the actual value against itself.
+        -- NetFees: look up segment estimate by matching category dimensions.
+        -- jr.SegmentKey is keyed to NetFees so this works directly.
         (
             'NetFees',
-            (SELECT s.OutcomeEstimate FROM dbo.analytical_segments s
-             WHERE s.SegmentKey = jr.SegmentKey AND s.OutcomeName = 'NetFees'
-             AND s.BuildRunKey = jr.BuildRunKey),
+            (SELECT TOP 1 s.OutcomeEstimate
+             FROM dbo.analytical_segments s
+             WHERE s.OutcomeName    = 'NetFees'
+               AND s.StatusKey      = fo.StatusKey
+               AND s.BuildRunKey    = jr.BuildRunKey
+               AND (s.ServiceLineKey   = fo.ServiceLineKey   OR s.ServiceLineKey   IS NULL)
+               AND (s.ClientTypeKey    = fo.ClientTypeKey    OR s.ClientTypeKey    IS NULL)
+               AND (s.IndustryKey      = fo.IndustryKey      OR s.IndustryKey      IS NULL)
+               AND (s.NewVsExistingKey = fo.NewVsExistingKey OR s.NewVsExistingKey IS NULL)
+               AND (s.LeadSourceKey    = fo.LeadSourceKey    OR s.LeadSourceKey    IS NULL)
+               AND s.ObservationCount >= 30
+             ORDER BY s.GranularityLevel ASC),
             CAST(fo.NetFees AS DECIMAL(18,6))
         ),
-        -- MarginPct: use segment estimate as predicted
+        -- MarginPct: look up segment estimate by matching category dimensions.
+        -- Cannot use jr.SegmentKey as it references the NetFees segment.
         (
             'MarginPct',
-            (SELECT s.OutcomeEstimate FROM dbo.analytical_segments s
-             WHERE s.SegmentKey = jr.SegmentKey AND s.OutcomeName = 'MarginPct'
-             AND s.BuildRunKey = jr.BuildRunKey),
+            (SELECT TOP 1 s.OutcomeEstimate
+             FROM dbo.analytical_segments s
+             WHERE s.OutcomeName    = 'MarginPct'
+               AND s.StatusKey      = fo.StatusKey
+               AND s.BuildRunKey    = jr.BuildRunKey
+               AND (s.ServiceLineKey   = fo.ServiceLineKey   OR s.ServiceLineKey   IS NULL)
+               AND (s.ClientTypeKey    = fo.ClientTypeKey    OR s.ClientTypeKey    IS NULL)
+               AND (s.IndustryKey      = fo.IndustryKey      OR s.IndustryKey      IS NULL)
+               AND (s.NewVsExistingKey = fo.NewVsExistingKey OR s.NewVsExistingKey IS NULL)
+               AND (s.LeadSourceKey    = fo.LeadSourceKey    OR s.LeadSourceKey    IS NULL)
+               AND s.ObservationCount >= 30
+             ORDER BY s.GranularityLevel ASC),
             CAST(fo.MarginPct AS DECIMAL(18,6))
         ),
         -- DaysSellToStart: actual available where job has started
